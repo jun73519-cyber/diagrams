@@ -62,7 +62,7 @@
   </div>
 
   <main class="mx-auto max-w-[1100px] px-4 pb-14 pt-2 sm:px-6 md:pb-20">
-    <div class="overflow-hidden rounded-[28px] border-x border-b border-slate-200/90 border-t-[14px] border-t-blue-600 bg-white shadow-xl shadow-slate-300/40 px-6 py-10 sm:px-10 md:px-12 md:py-14">
+    <div class="overflow-x-hidden rounded-[28px] border-x border-b border-slate-200/90 border-t-[14px] border-t-blue-600 bg-white shadow-xl shadow-slate-300/40 px-6 py-10 sm:px-10 md:px-12 md:py-14">
 
       <p class="mb-2 text-center text-sm font-semibold tracking-wide text-slate-500">開発ツール / 自動化</p>
       <h1 class="mb-3 text-center text-2xl font-black leading-tight text-blue-700 sm:text-3xl md:text-4xl" style="text-shadow: 1px 1px 0 rgba(255,255,255,0.8);">
@@ -73,8 +73,8 @@
       </p>
 
       <!-- ①〜④（参考 diagram と同型の4カラム） -->
-      <div class="mb-12 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4 md:gap-5">
-        <div class="flex flex-col rounded-[20px] bg-gradient-to-br from-violet-600 to-purple-800 p-5 text-center text-white shadow-lg md:p-6">
+      <div class="mb-12 grid grid-cols-1 gap-4 py-2 sm:grid-cols-2 md:grid-cols-4 md:gap-5">
+        <div class="relative z-0 flex flex-col rounded-[20px] bg-gradient-to-br from-violet-600 to-purple-800 p-5 text-center text-white shadow-lg transition-transform transition-shadow duration-300 ease-out hover:z-10 hover:-translate-y-3 hover:shadow-2xl motion-reduce:transition-none motion-reduce:hover:translate-y-0 motion-reduce:hover:shadow-lg md:p-6">
           <div class="mb-2 text-sm font-bold uppercase tracking-wider text-white/90">① トリガー</div>
           <div class="mb-3 flex justify-center">
             <i data-lucide="timer" class="h-10 w-10 text-white/95"></i>
@@ -84,7 +84,7 @@
             毎日午前9時に自動実行。<br />リポジトリ上の <code class="rounded bg-black/20 px-1">main.py</code> を起動する。
           </p>
         </div>
-        <div class="flex flex-col rounded-[20px] bg-gradient-to-br from-blue-600 to-cyan-500 p-5 text-center text-white shadow-lg md:p-6">
+        <div class="relative z-0 flex flex-col rounded-[20px] bg-gradient-to-br from-blue-600 to-cyan-500 p-5 text-center text-white shadow-lg transition-transform transition-shadow duration-300 ease-out hover:z-10 hover:-translate-y-3 hover:shadow-2xl motion-reduce:transition-none motion-reduce:hover:translate-y-0 motion-reduce:hover:shadow-lg md:p-6">
           <div class="mb-2 text-sm font-bold uppercase tracking-wider text-white/90">② ソース元</div>
           <div class="mb-3 flex justify-center">
             <i data-lucide="rss" class="h-10 w-10 text-white/95"></i>
@@ -94,7 +94,7 @@
             公開中の engineering 記事を取得。<br /><code class="rounded bg-black/20 px-1">processed.json</code> で未処理URLだけを対象にする。
           </p>
         </div>
-        <div class="flex flex-col rounded-[20px] bg-gradient-to-br from-emerald-600 to-teal-600 p-5 text-center text-white shadow-lg md:p-6">
+        <div class="relative z-0 flex flex-col rounded-[20px] bg-gradient-to-br from-emerald-600 to-teal-600 p-5 text-center text-white shadow-lg transition-transform transition-shadow duration-300 ease-out hover:z-10 hover:-translate-y-3 hover:shadow-2xl motion-reduce:transition-none motion-reduce:hover:translate-y-0 motion-reduce:hover:shadow-lg md:p-6">
           <div class="mb-2 text-sm font-bold uppercase tracking-wider text-white/90">③ 処理場所</div>
           <div class="mb-3 flex justify-center">
             <i data-lucide="cpu" class="h-10 w-10 text-white/95"></i>
@@ -104,7 +104,7 @@
             本文を Gemini API に渡し、要約・用語などを <strong class="font-bold">JSON</strong> で受け取る。Slack用に整形もここで行う。
           </p>
         </div>
-        <div class="flex flex-col rounded-[20px] bg-gradient-to-br from-rose-500 to-pink-500 p-5 text-center text-white shadow-lg md:p-6">
+        <div class="relative z-0 flex flex-col rounded-[20px] bg-gradient-to-br from-rose-500 to-pink-500 p-5 text-center text-white shadow-lg transition-transform transition-shadow duration-300 ease-out hover:z-10 hover:-translate-y-3 hover:shadow-2xl motion-reduce:transition-none motion-reduce:hover:translate-y-0 motion-reduce:hover:shadow-lg md:p-6">
           <div class="mb-2 text-sm font-bold uppercase tracking-wider text-white/90">④ 届ける先</div>
           <div class="mb-3 flex justify-center">
             <i data-lucide="messages-square" class="h-10 w-10 text-white/95"></i>
