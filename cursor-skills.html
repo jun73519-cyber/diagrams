@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta property="og:title" content="Cursorのスキル機能とは">
+  <meta property="og:description" content="CursorのAIに「仕事のやり方」を教える仕組み「スキル」を、プログラミング未経験でもわかるように図解します。">
+  <meta property="og:type" content="article">
+  <title>Cursorのスキル機能とは</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23FFFFFF'/><rect x='8' y='8' width='84' height='84' rx='14' fill='none' stroke='%233B82F6' stroke-width='4'/><circle cx='32' cy='40' r='10' fill='%233B82F6' opacity='0.8'/><circle cx='68' cy='40' r='10' fill='%2360A5FA' opacity='0.8'/><rect x='25' y='62' width='50' height='6' rx='3' fill='%2394A3B8' opacity='0.6'/><rect x='30' y='74' width='40' height='6' rx='3' fill='%2394A3B8' opacity='0.3'/></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ads: {
+              bg: '#FFFFFF',
+              surface: '#F8FAFC',
+              hover: '#F1F5F9',
+              border: '#E2E8F0',
+              accent: '#3B82F6',
+              'accent-light': '#2563EB',
+              text: '#1E293B',
+              muted: '#64748B',
+              dim: '#94A3B8',
+              positive: '#10B981',
+              negative: '#EF4444',
+              warning: '#F59E0B',
+            }
+          },
+          fontFamily: {
+            sans: ['"Noto Sans JP"', '"Hiragino Sans"', '"Hiragino Kaku Gothic ProN"', '"Yu Gothic UI"', '"Meiryo"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @media print {
+      .no-print { display: none !important; }
+      body { border-top: none !important; }
+      .rounded-xl { break-inside: avoid; }
+      .md\:flex-row { flex-direction: row !important; }
+      .md\:hidden { display: none !important; }
+      .hidden.md\:block { display: block !important; }
+      .md\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+      .sm\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+      .md\:mb-20 { margin-bottom: 5rem !important; }
+      .md\:py-16 { padding-top: 4rem !important; padding-bottom: 4rem !important; }
+      .bg-clip-text.text-transparent {
+        -webkit-background-clip: initial !important;
+        background-clip: initial !important;
+        color: #2563EB !important;
+        -webkit-text-fill-color: #2563EB !important;
+      }
+    }
+  </style>
+</head>
+<body class="bg-ads-bg text-slate-600 antialiased leading-relaxed border-t-4 border-ads-accent">
+  <div class="no-print max-w-3xl mx-auto px-5 pt-2 flex justify-end">
+    <button onclick="window.print()" class="flex items-center gap-1.5 text-xs text-ads-dim hover:text-ads-accent transition-colors cursor-pointer">
+      <i data-lucide="download" class="w-3.5 h-3.5"></i>
+      PDF
+    </button>
+  </div>
+  <main class="max-w-3xl mx-auto px-5 py-10 md:py-16">
+<!-- CONTENT_START -->
+
+<!-- ============================================================ -->
+<!--  HERO                                                        -->
+<!-- ============================================================ -->
+<div class="text-center mb-8 md:mb-10">
+  <div class="inline-flex items-center gap-2 bg-ads-accent/10 text-ads-accent-light px-4 py-1.5 rounded-full text-sm font-medium mb-6">
+    <i data-lucide="zap" class="w-4 h-4"></i>
+    開発ツール
+  </div>
+  <h1 class="text-3xl md:text-5xl font-black text-slate-900 tracking-tight mb-6">
+    Cursorの<span class="bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">スキル機能</span>とは
+  </h1>
+  <p class="text-lg text-ads-muted max-w-xl mx-auto leading-relaxed">
+    AIがいつも同じ高品質な仕事をしてくれる。<br>
+    ひとことで言うと ──
+  </p>
+</div>
+
+<!-- ============================================================ -->
+<!--  ONE-PAGE SUMMARY                                            -->
+<!-- ============================================================ -->
+<div class="bg-ads-surface border border-ads-border rounded-2xl p-6 md:p-10 mb-6">
+  <div class="text-center mb-8 md:mb-10">
+    <p class="text-xl md:text-2xl font-black text-slate-900 mb-2">
+      スキル = AIへの<span class="text-ads-accent-light">「仕事の説明書」</span>
+    </p>
+    <p class="text-sm text-ads-muted">
+      一度作っておけば、いつでもどこでも同じやり方でAIが動いてくれる
+    </p>
+  </div>
+
+  <!-- コア図解: スキルなし vs スキルあり -->
+  <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6 mb-8">
+    <!-- スキルなし -->
+    <div class="flex-1 max-w-xs bg-red-500/5 border border-red-500/20 rounded-2xl p-5 text-center">
+      <div class="w-14 h-14 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center mx-auto mb-3">
+        <i data-lucide="bot" class="w-7 h-7 text-red-500"></i>
+      </div>
+      <div class="font-bold text-red-700 mb-1">スキルなし</div>
+      <div class="text-xs text-ads-muted mb-3">毎回指示を出し直す必要がある</div>
+      <div class="space-y-1.5">
+        <div class="bg-white rounded-lg px-3 py-1.5 text-xs text-ads-muted border border-ads-border/50 text-left">「図解をHTMLで作って、surge.shに...」</div>
+        <div class="bg-white rounded-lg px-3 py-1.5 text-xs text-ads-muted border border-ads-border/50 text-left">「Tailwindを使って、色は青系で...」</div>
+        <div class="bg-white rounded-lg px-3 py-1.5 text-xs text-ads-muted border border-ads-border/50 text-left">「アイコンはLucideを使って...」</div>
+      </div>
+      <div class="mt-3 text-xs text-red-600 flex items-center justify-center gap-1">
+        <i data-lucide="x-circle" class="w-3.5 h-3.5"></i>
+        毎回長い指示が必要
+      </div>
+    </div>
+
+    <div class="text-2xl text-ads-dim font-light hidden md:block">→</div>
+    <div class="text-2xl text-ads-dim font-light md:hidden">↓</div>
+
+    <!-- スキルあり -->
+    <div class="flex-1 max-w-xs bg-emerald-500/5 border border-emerald-500/20 rounded-2xl p-5 text-center">
+      <div class="w-14 h-14 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center mx-auto mb-3">
+        <i data-lucide="bot" class="w-7 h-7 text-emerald-600"></i>
+      </div>
+      <div class="font-bold text-emerald-700 mb-1">スキルあり</div>
+      <div class="text-xs text-ads-muted mb-3">説明書を読んだAIが自動で動く</div>
+      <div class="space-y-1.5">
+        <div class="bg-white rounded-lg px-3 py-1.5 text-xs text-ads-muted border border-ads-border/50 text-left">「Gitを図解して」</div>
+        <div class="bg-emerald-500/10 rounded-lg px-3 py-1.5 text-xs text-emerald-700 border border-emerald-500/20 text-left">
+          <i data-lucide="check" class="w-3 h-3 inline mr-1"></i>SKILL.mdを読んで全部自動で実行
+        </div>
+      </div>
+      <div class="mt-3 text-xs text-emerald-600 flex items-center justify-center gap-1">
+        <i data-lucide="check-circle" class="w-3.5 h-3.5"></i>
+        一言で完璧な仕事をしてくれる
+      </div>
+    </div>
+  </div>
+
+  <!-- 身近な接点ピル -->
+  <div class="flex items-center gap-4 mb-5">
+    <div class="flex-1 border-t border-ads-border/50"></div>
+    <div class="text-[11px] text-ads-dim font-medium">スキルでできること</div>
+    <div class="flex-1 border-t border-ads-border/50"></div>
+  </div>
+  <div class="flex flex-wrap justify-center gap-2">
+    <div class="flex items-center gap-1.5 bg-white border border-ads-border rounded-full px-3.5 py-1.5 text-xs text-slate-700">
+      <i data-lucide="image" class="w-3.5 h-3.5 text-blue-500"></i>
+      図解を自動生成
+    </div>
+    <div class="flex items-center gap-1.5 bg-white border border-ads-border rounded-full px-3.5 py-1.5 text-xs text-slate-700">
+      <i data-lucide="rocket" class="w-3.5 h-3.5 text-orange-500"></i>
+      アプリを自動デプロイ
+    </div>
+    <div class="flex items-center gap-1.5 bg-white border border-ads-border rounded-full px-3.5 py-1.5 text-xs text-slate-700">
+      <i data-lucide="check-square" class="w-3.5 h-3.5 text-emerald-500"></i>
+      コードレビューを自動化
+    </div>
+    <div class="flex items-center gap-1.5 bg-white border border-ads-border rounded-full px-3.5 py-1.5 text-xs text-slate-700">
+      <i data-lucide="file-text" class="w-3.5 h-3.5 text-purple-500"></i>
+      ドキュメント作成
+    </div>
+  </div>
+</div>
+
+<p class="text-center text-ads-muted mb-16 md:mb-20">
+  ここから先で、スキルの仕組みをひとつずつ丁寧に解説していきます。
+</p>
+
+
+<!-- ============================================================ -->
+<!--  SECTION 1: スキルって何？                                     -->
+<!-- ============================================================ -->
+<section class="mb-16 md:mb-20">
+  <div class="flex items-center gap-3 mb-8">
+    <div class="flex items-center justify-center w-10 h-10 rounded-lg bg-blue-500/10 flex-shrink-0">
+      <i data-lucide="help-circle" class="w-5 h-5 text-blue-600"></i>
+    </div>
+    <h2 class="text-xl md:text-2xl font-bold text-slate-900">スキルって何？</h2>
+  </div>
+
+  <p class="mb-6 leading-relaxed">
+    新しいアルバイトが入ってきたとき、あなたはどうしますか？ 毎回「こうやって接客して」「レジはこう打って」と説明するのは大変です。だから多くのお店では<strong class="text-slate-900">「マニュアル（手順書）」</strong>を用意しています。アルバイトはマニュアルを読んで、一定の品質で仕事ができるようになります。
+  </p>
+
+  <p class="mb-8 leading-relaxed">
+    CursorのAI（エージェント）も同じです。スキルとは、<strong class="text-slate-900">AIへの「仕事のマニュアル」</strong>です。
+  </p>
+
+  <!-- アナロジー図 -->
+  <div class="bg-ads-surface border border-ads-border rounded-xl p-6 md:p-8 mb-8">
+    <h3 class="text-lg font-bold text-slate-900 text-center mb-8">スキルの役割をアルバイトのマニュアルで考える</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- 左: お店のマニュアル -->
+      <div class="bg-amber-500/5 border border-amber-500/20 rounded-xl p-5">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center flex-shrink-0">
+            <i data-lucide="book-open" class="w-5 h-5 text-amber-600"></i>
+          </div>
+          <div>
+            <div class="font-bold text-amber-700">お店のマニュアル</div>
+            <div class="text-xs text-ads-muted">アルバイトへの説明書</div>
+          </div>
+        </div>
+        <ul class="space-y-2 text-sm text-ads-muted">
+          <li class="flex items-start gap-2"><i data-lucide="chevron-right" class="w-4 h-4 text-amber-500 flex-shrink-0 mt-0.5"></i>接客のやり方が書いてある</li>
+          <li class="flex items-start gap-2"><i data-lucide="chevron-right" class="w-4 h-4 text-amber-500 flex-shrink-0 mt-0.5"></i>レジの操作手順が書いてある</li>
+          <li class="flex items-start gap-2"><i data-lucide="chevron-right" class="w-4 h-4 text-amber-500 flex-shrink-0 mt-0.5"></i>一度作れば何人でも共有できる</li>
+          <li class="flex items-start gap-2"><i data-lucide="chevron-right" class="w-4 h-4 text-amber-500 flex-shrink-0 mt-0.5"></i>誰が担当しても同じ品質になる</li>
+        </ul>
+      </div>
+      <!-- 右: Cursorのスキル -->
+      <div class="bg-ads-accent/5 border border-ads-accent/20 rounded-xl p-5">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 rounded-lg bg-ads-accent/10 flex items-center justify-center flex-shrink-0">
+            <i data-lucide="file-code" class="w-5 h-5 text-ads-accent-light"></i>
+          </div>
+          <div>
+            <div class="font-bold text-ads-accent-light">CursorのSKILL.md</div>
+            <div class="text-xs text-ads-muted">AIへの説明書</div>
+          </div>
+        </div>
+        <ul class="space-y-2 text-sm text-ads-muted">
+          <li class="flex items-start gap-2"><i data-lucide="chevron-right" class="w-4 h-4 text-ads-accent flex-shrink-0 mt-0.5"></i>図解の作り方が書いてある</li>
+          <li class="flex items-start gap-2"><i data-lucide="chevron-right" class="w-4 h-4 text-ads-accent flex-shrink-0 mt-0.5"></i>デプロイの手順が書いてある</li>
+          <li class="flex items-start gap-2"><i data-lucide="chevron-right" class="w-4 h-4 text-ads-accent flex-shrink-0 mt-0.5"></i>一度作れば何人でも共有できる</li>
+          <li class="flex items-start gap-2"><i data-lucide="chevron-right" class="w-4 h-4 text-ads-accent flex-shrink-0 mt-0.5"></i>誰が使っても同じ品質になる</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-ads-accent/5 border border-ads-accent/20 rounded-xl p-5">
+    <div class="flex items-start gap-3">
+      <div class="flex items-center justify-center w-8 h-8 rounded-lg bg-ads-accent/10 flex-shrink-0 mt-0.5">
+        <i data-lucide="lightbulb" class="w-4 h-4 text-ads-accent-light"></i>
+      </div>
+      <div>
+        <p class="font-bold text-ads-accent-light mb-1">ここがポイント</p>
+        <p class="text-ads-muted leading-relaxed text-sm">
+          スキルは <strong class="text-slate-800">「SKILL.md」</strong>（スキル・エムディー）というファイルで作ります。このファイルに「こういう作業をするときは、こういう手順でやって」と書いておくだけ。あとはCursorが自動的に読み込んで、AIに覚えさせてくれます。
+          <span class="block mt-1 text-xs text-ads-dim">出典: <a href="https://cursor.com/ja/docs/skills" class="underline decoration-ads-dim/30 hover:text-ads-accent transition-colors">Cursor 公式ドキュメント — エージェントスキル</a></span>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================ -->
+<!--  SECTION 2: スキルはどこに置く？                               -->
+<!-- ============================================================ -->
+<section class="mb-16 md:mb-20">
+  <div class="flex items-center gap-3 mb-8">
+    <div class="flex items-center justify-center w-10 h-10 rounded-lg bg-purple-500/10 flex-shrink-0">
+      <i data-lucide="folder" class="w-5 h-5 text-purple-600"></i>
+    </div>
+    <h2 class="text-xl md:text-2xl font-bold text-slate-900">スキルはどこに置く？</h2>
+  </div>
+
+  <p class="mb-6 leading-relaxed">
+    スキルは、決まった場所にファイルを置くだけでCursorが自動的に見つけてくれます。「どこに置くか」で、使える範囲が変わります。
+  </p>
+
+  <!-- 2種類の保存場所 -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+    <!-- プロジェクトレベル -->
+    <div class="bg-ads-surface border border-ads-border rounded-xl overflow-hidden">
+      <div class="bg-blue-500/10 border-b border-ads-border px-5 py-3 flex items-center gap-2">
+        <i data-lucide="folder" class="w-4 h-4 text-blue-600"></i>
+        <span class="font-bold text-blue-700 text-sm">プロジェクト専用スキル</span>
+      </div>
+      <div class="p-5">
+        <!-- フォルダ構造モック -->
+        <div class="bg-slate-900 rounded-lg p-3 mb-4 font-mono text-xs">
+          <div class="flex items-center gap-1.5 text-slate-400">
+            <i data-lucide="folder-open" class="w-3.5 h-3.5 text-yellow-400"></i>
+            <span class="text-yellow-300">プロジェクトフォルダ</span>
+          </div>
+          <div class="pl-4 mt-1">
+            <div class="flex items-center gap-1.5 text-slate-400">
+              <i data-lucide="folder-open" class="w-3 h-3 text-yellow-400/70"></i>
+              <span class="text-slate-300">.cursor</span>
+            </div>
+            <div class="pl-4">
+              <div class="flex items-center gap-1.5 text-slate-400">
+                <i data-lucide="folder-open" class="w-3 h-3 text-yellow-400/70"></i>
+                <span class="text-slate-300">skills</span>
+              </div>
+              <div class="pl-4">
+                <div class="flex items-center gap-1.5">
+                  <i data-lucide="folder" class="w-3 h-3 text-yellow-400/50"></i>
+                  <span class="text-slate-300">my-skill</span>
+                </div>
+                <div class="pl-4">
+                  <div class="flex items-center gap-1.5">
+                    <i data-lucide="file-text" class="w-3 h-3 text-emerald-400"></i>
+                    <span class="text-emerald-300">SKILL.md</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="text-sm text-ads-muted leading-relaxed">
+          <strong class="text-slate-900">このプロジェクト（フォルダ）を開いているときだけ</strong>使えるスキル。チームでフォルダを共有すれば、全員が同じスキルを使える。
+        </p>
+      </div>
+    </div>
+
+    <!-- ユーザーレベル -->
+    <div class="bg-ads-surface border border-ads-border rounded-xl overflow-hidden">
+      <div class="bg-emerald-500/10 border-b border-ads-border px-5 py-3 flex items-center gap-2">
+        <i data-lucide="home" class="w-4 h-4 text-emerald-600"></i>
+        <span class="font-bold text-emerald-700 text-sm">どこでも使えるスキル（グローバル）</span>
+      </div>
+      <div class="p-5">
+        <!-- フォルダ構造モック -->
+        <div class="bg-slate-900 rounded-lg p-3 mb-4 font-mono text-xs">
+          <div class="flex items-center gap-1.5 text-slate-400">
+            <i data-lucide="home" class="w-3.5 h-3.5 text-blue-400"></i>
+            <span class="text-blue-300">ホームフォルダ（~）</span>
+          </div>
+          <div class="pl-4 mt-1">
+            <div class="flex items-center gap-1.5 text-slate-400">
+              <i data-lucide="folder-open" class="w-3 h-3 text-yellow-400/70"></i>
+              <span class="text-slate-300">.cursor</span>
+            </div>
+            <div class="pl-4">
+              <div class="flex items-center gap-1.5 text-slate-400">
+                <i data-lucide="folder-open" class="w-3 h-3 text-yellow-400/70"></i>
+                <span class="text-slate-300">skills</span>
+              </div>
+              <div class="pl-4">
+                <div class="flex items-center gap-1.5">
+                  <i data-lucide="folder" class="w-3 h-3 text-yellow-400/50"></i>
+                  <span class="text-slate-300">my-skill</span>
+                </div>
+                <div class="pl-4">
+                  <div class="flex items-center gap-1.5">
+                    <i data-lucide="file-text" class="w-3 h-3 text-emerald-400"></i>
+                    <span class="text-emerald-300">SKILL.md</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="text-sm text-ads-muted leading-relaxed">
+          <strong class="text-slate-900">どのプロジェクトを開いていても</strong>常に使えるスキル。自分がよく使う作業はここに入れておくと便利。
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-amber-500/5 border border-amber-500/20 rounded-xl p-5">
+    <div class="flex items-start gap-3">
+      <div class="flex items-center justify-center w-8 h-8 rounded-lg bg-amber-500/10 flex-shrink-0 mt-0.5">
+        <i data-lucide="info" class="w-4 h-4 text-amber-600"></i>
+      </div>
+      <div>
+        <p class="font-bold text-amber-700 mb-1">今あなたが使っているスキルはどこにある？</p>
+        <p class="text-ads-muted leading-relaxed text-sm">
+          図解生成スキルは <strong class="text-slate-800">.claude/skills/creating-visual-explainers/SKILL.md</strong> に入っています。プロジェクト専用スキルとして、このフォルダを開いているときだけ使える設定になっています。
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================ -->
+<!--  SECTION 3: どうやって使う？                                   -->
+<!-- ============================================================ -->
+<section class="mb-16 md:mb-20">
+  <div class="flex items-center gap-3 mb-8">
+    <div class="flex items-center justify-center w-10 h-10 rounded-lg bg-cyan-500/10 flex-shrink-0">
+      <i data-lucide="play-circle" class="w-5 h-5 text-cyan-600"></i>
+    </div>
+    <h2 class="text-xl md:text-2xl font-bold text-slate-900">どうやって使う？</h2>
+  </div>
+
+  <p class="mb-8 leading-relaxed">
+    スキルを使うのに特別な操作は必要ありません。Cursorがスキルを自動で読み込んでくれるので、普通に話しかけるだけで動きます。2つの呼び出し方があります。
+  </p>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+
+    <!-- 方法1: 自動 -->
+    <div class="bg-ads-surface border border-ads-border rounded-xl overflow-hidden">
+      <div class="flex items-center gap-3 px-5 py-3 bg-ads-accent/5 border-b border-ads-border">
+        <div class="w-7 h-7 rounded-full bg-ads-accent text-white text-xs font-bold flex items-center justify-center flex-shrink-0">1</div>
+        <span class="font-bold text-slate-900 text-sm">普通に話しかける（自動）</span>
+      </div>
+      <div class="p-5">
+        <p class="text-sm text-ads-muted mb-4 leading-relaxed">
+          AIが会話の内容から「これはこのスキルを使う場面だな」と自動で判断して動いてくれます。
+        </p>
+        <!-- チャットUI -->
+        <div class="bg-slate-900 rounded-xl p-3 space-y-2">
+          <div class="flex justify-end">
+            <div class="bg-ads-accent text-white text-xs rounded-xl rounded-tr-sm px-3 py-2 max-w-[200px]">
+              APIの仕組みを図解して
+            </div>
+          </div>
+          <div class="flex items-start gap-2">
+            <div class="w-5 h-5 rounded-full bg-ads-accent/20 flex items-center justify-center flex-shrink-0">
+              <i data-lucide="cpu" class="w-3 h-3 text-ads-accent"></i>
+            </div>
+            <div class="bg-slate-800 text-slate-300 text-xs rounded-xl rounded-tl-sm px-3 py-2 max-w-[200px] leading-relaxed">
+              図解スキルを使って作成します！
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 方法2: 手動 -->
+    <div class="bg-ads-surface border border-ads-border rounded-xl overflow-hidden">
+      <div class="flex items-center gap-3 px-5 py-3 bg-purple-500/5 border-b border-ads-border">
+        <div class="w-7 h-7 rounded-full bg-purple-500 text-white text-xs font-bold flex items-center justify-center flex-shrink-0">2</div>
+        <span class="font-bold text-slate-900 text-sm">スキル名で呼び出す（手動）</span>
+      </div>
+      <div class="p-5">
+        <p class="text-sm text-ads-muted mb-4 leading-relaxed">
+          チャット欄で <strong class="text-slate-900">/（スラッシュ）</strong> を入力するとスキル一覧が表示されます。選んで実行できます。
+        </p>
+        <!-- チャットUIモック（スラッシュコマンド） -->
+        <div class="bg-slate-900 rounded-xl p-3">
+          <div class="flex items-center gap-2 bg-slate-800 border border-slate-600/50 rounded-lg px-3 py-2 mb-2">
+            <span class="text-ads-accent font-mono text-sm">/</span>
+            <span class="text-slate-300 text-xs">creating-visual-explainers</span>
+          </div>
+          <div class="bg-slate-800 rounded-lg p-2">
+            <div class="flex items-center gap-2 text-xs text-slate-300 px-1 py-1 rounded hover:bg-slate-700">
+              <i data-lucide="image" class="w-3.5 h-3.5 text-ads-accent"></i>
+              <span>creating-visual-explainers</span>
+              <span class="text-slate-500 ml-auto">図解を生成・公開する</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- スキルを確認する方法 -->
+  <div class="bg-ads-surface border border-ads-border rounded-xl p-6">
+    <h3 class="font-bold text-slate-900 mb-4 flex items-center gap-2">
+      <i data-lucide="settings" class="w-4 h-4 text-ads-accent"></i>
+      今使えるスキルを確認する方法
+    </h3>
+    <div class="flex flex-col md:flex-row gap-4">
+      <div class="flex-1 flex items-start gap-3">
+        <div class="w-7 h-7 rounded-full bg-slate-200 text-slate-600 text-xs font-bold flex items-center justify-center flex-shrink-0">1</div>
+        <div class="text-sm text-ads-muted">
+          <span class="font-medium text-slate-900 block mb-0.5">Cursor Settingsを開く</span>
+          WindowsならCtrl+Shift+J
+        </div>
+      </div>
+      <i data-lucide="chevron-right" class="w-4 h-4 text-ads-dim self-center hidden md:block flex-shrink-0"></i>
+      <div class="flex-1 flex items-start gap-3">
+        <div class="w-7 h-7 rounded-full bg-slate-200 text-slate-600 text-xs font-bold flex items-center justify-center flex-shrink-0">2</div>
+        <div class="text-sm text-ads-muted">
+          <span class="font-medium text-slate-900 block mb-0.5">「Rules」をクリック</span>
+          左側のメニューから選ぶ
+        </div>
+      </div>
+      <i data-lucide="chevron-right" class="w-4 h-4 text-ads-dim self-center hidden md:block flex-shrink-0"></i>
+      <div class="flex-1 flex items-start gap-3">
+        <div class="w-7 h-7 rounded-full bg-slate-200 text-slate-600 text-xs font-bold flex items-center justify-center flex-shrink-0">3</div>
+        <div class="text-sm text-ads-muted">
+          <span class="font-medium text-slate-900 block mb-0.5">「Agent Decides」を確認</span>
+          登録済みスキルが一覧で出る
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================ -->
+<!--  SECTION 4: GitHubからスキルをインストール                      -->
+<!-- ============================================================ -->
+<section class="mb-16 md:mb-20">
+  <div class="flex items-center gap-3 mb-8">
+    <div class="flex items-center justify-center w-10 h-10 rounded-lg bg-emerald-500/10 flex-shrink-0">
+      <i data-lucide="download" class="w-5 h-5 text-emerald-600"></i>
+    </div>
+    <h2 class="text-xl md:text-2xl font-bold text-slate-900">他の人が作ったスキルをインストールする</h2>
+  </div>
+
+  <p class="mb-8 leading-relaxed">
+    スキルは自分で作るだけでなく、他の人が公開したスキルをインターネット（GitHub）から取り込んで使うこともできます。アプリのインストールに似たイメージです。
+  </p>
+
+  <!-- 4ステップ -->
+  <div class="bg-ads-surface border border-ads-border rounded-xl p-6 md:p-8 mb-6">
+    <h3 class="text-base font-bold text-slate-900 mb-6 text-center">GitHub からスキルをインストールする手順</h3>
+    <div class="space-y-4">
+      <div class="flex items-start gap-4">
+        <div class="w-8 h-8 rounded-full bg-blue-500 text-white text-sm font-bold flex items-center justify-center flex-shrink-0">1</div>
+        <div class="flex-1 pt-1">
+          <div class="font-bold text-slate-900 text-sm mb-1">Cursor Settings を開く</div>
+          <div class="text-sm text-ads-muted">キーボードで <kbd class="bg-slate-100 border border-slate-300 rounded px-1.5 py-0.5 text-xs font-mono">Ctrl</kbd> + <kbd class="bg-slate-100 border border-slate-300 rounded px-1.5 py-0.5 text-xs font-mono">Shift</kbd> + <kbd class="bg-slate-100 border border-slate-300 rounded px-1.5 py-0.5 text-xs font-mono">J</kbd> を押す</div>
+        </div>
+      </div>
+      <div class="flex items-start gap-4">
+        <div class="w-8 h-8 rounded-full bg-purple-500 text-white text-sm font-bold flex items-center justify-center flex-shrink-0">2</div>
+        <div class="flex-1 pt-1">
+          <div class="font-bold text-slate-900 text-sm mb-1">「Rules」→「Add Rule」をクリック</div>
+          <div class="text-sm text-ads-muted">左メニューの「Rules」を開き、「Add Rule」ボタンを押す</div>
+        </div>
+      </div>
+      <div class="flex items-start gap-4">
+        <div class="w-8 h-8 rounded-full bg-emerald-500 text-white text-sm font-bold flex items-center justify-center flex-shrink-0">3</div>
+        <div class="flex-1 pt-1">
+          <div class="font-bold text-slate-900 text-sm mb-1">「Remote Rule (Github)」を選ぶ</div>
+          <div class="text-sm text-ads-muted">表示された選択肢から「Remote Rule」を選択する</div>
+        </div>
+      </div>
+      <div class="flex items-start gap-4">
+        <div class="w-8 h-8 rounded-full bg-amber-500 text-white text-sm font-bold flex items-center justify-center flex-shrink-0">4</div>
+        <div class="flex-1 pt-1">
+          <div class="font-bold text-slate-900 text-sm mb-1">GitHubのURLを貼り付けて完了</div>
+          <div class="text-sm text-ads-muted">インストールしたいスキルのGitHubリポジトリURLを入力する</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-emerald-500/5 border border-emerald-500/20 rounded-xl p-5">
+    <div class="flex items-start gap-3">
+      <div class="flex items-center justify-center w-8 h-8 rounded-lg bg-emerald-500/10 flex-shrink-0 mt-0.5">
+        <i data-lucide="lightbulb" class="w-4 h-4 text-emerald-600"></i>
+      </div>
+      <div>
+        <p class="font-bold text-emerald-700 mb-1">スキルはチームで共有できる</p>
+        <p class="text-ads-muted leading-relaxed text-sm">
+          プロジェクトフォルダにスキルを入れておけば、そのフォルダをGitで共有するだけでチーム全員が同じスキルを使えます。「このチームでのAIの使い方」をファイルで管理できるのが、スキルの大きなメリットです。
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================ -->
+<!--  SECTION 5: まとめ                                            -->
+<!-- ============================================================ -->
+<section>
+  <div class="flex items-center gap-3 mb-8">
+    <div class="flex items-center justify-center w-10 h-10 rounded-lg bg-ads-accent/10 flex-shrink-0">
+      <i data-lucide="check-circle" class="w-5 h-5 text-ads-accent-light"></i>
+    </div>
+    <h2 class="text-xl md:text-2xl font-bold text-slate-900">まとめ — 3つのポイント</h2>
+  </div>
+
+  <div class="space-y-4 mb-10">
+    <div class="bg-ads-surface border border-ads-border rounded-xl p-6 border-l-4 border-l-blue-500">
+      <div class="flex items-start gap-4">
+        <div class="text-2xl font-black text-blue-500 leading-none flex-shrink-0 mt-1">01</div>
+        <div>
+          <h3 class="font-bold text-slate-900 mb-2">スキル = AIへの仕事の説明書</h3>
+          <p class="text-sm text-ads-muted leading-relaxed">
+            SKILL.mdというファイルに「この作業はこうやって」と書いておくだけで、AIがいつでもその通りに動いてくれます。毎回長い指示を出す必要がなくなります。
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="bg-ads-surface border border-ads-border rounded-xl p-6 border-l-4 border-l-emerald-500">
+      <div class="flex items-start gap-4">
+        <div class="text-2xl font-black text-emerald-500 leading-none flex-shrink-0 mt-1">02</div>
+        <div>
+          <h3 class="font-bold text-slate-900 mb-2">決まった場所に置けば自動で動く</h3>
+          <p class="text-sm text-ads-muted leading-relaxed">
+            .cursor/skills/ フォルダにスキルを置くだけで、Cursorが自動的に読み込みます。特別な設定は不要です。
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="bg-ads-surface border border-ads-border rounded-xl p-6 border-l-4 border-l-amber-500">
+      <div class="flex items-start gap-4">
+        <div class="text-2xl font-black text-amber-500 leading-none flex-shrink-0 mt-1">03</div>
+        <div>
+          <h3 class="font-bold text-slate-900 mb-2">他の人のスキルを使うこともできる</h3>
+          <p class="text-sm text-ads-muted leading-relaxed">
+            GitHubで公開されているスキルをインストールして使えます。自分で作らなくても、誰かが作ったスキルをそのまま活用できます。
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-center bg-gradient-to-b from-ads-accent/5 to-transparent border border-ads-accent/10 rounded-xl p-8 md:p-10">
+    <i data-lucide="zap" class="w-8 h-8 text-ads-accent mx-auto mb-4"></i>
+    <p class="text-lg font-bold text-slate-900 mb-3">あなたはすでにスキルを使っています</p>
+    <p class="text-ads-muted max-w-lg mx-auto leading-relaxed">
+      「図解して」と話しかけるだけで図解が完成するのは、creating-visual-explainersスキルが裏側で動いているからです。スキルのおかげで、AIが毎回同じ品質の図解を作れるようになっています。
+    </p>
+  </div>
+</section>
+
+<!-- CONTENT_END -->
+  </main>
+  <footer class="max-w-3xl mx-auto px-5 pb-10 pt-6 border-t border-ads-border/30">
+    <p class="text-xs text-ads-dim text-center">AI-Driven School の図解ツールで作成</p>
+  </footer>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>lucide.createIcons();</script>
+</body>
+</html>

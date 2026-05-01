@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta property="og:title" content="図解生成ツールの使い方">
+  <meta property="og:description" content="Cursorのチャットに「○○を図解して」と話しかけるだけで、プロ品質の図解が完成してURLで届く仕組みを図解します。">
+  <meta property="og:type" content="article">
+  <title>図解生成ツールの使い方</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23FFFFFF'/><rect x='8' y='8' width='84' height='84' rx='14' fill='none' stroke='%233B82F6' stroke-width='4'/><circle cx='32' cy='40' r='10' fill='%233B82F6' opacity='0.8'/><circle cx='68' cy='40' r='10' fill='%2360A5FA' opacity='0.8'/><rect x='25' y='62' width='50' height='6' rx='3' fill='%2394A3B8' opacity='0.6'/><rect x='30' y='74' width='40' height='6' rx='3' fill='%2394A3B8' opacity='0.3'/></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ads: {
+              bg: '#FFFFFF',
+              surface: '#F8FAFC',
+              hover: '#F1F5F9',
+              border: '#E2E8F0',
+              accent: '#3B82F6',
+              'accent-light': '#2563EB',
+              text: '#1E293B',
+              muted: '#64748B',
+              dim: '#94A3B8',
+              positive: '#10B981',
+              negative: '#EF4444',
+              warning: '#F59E0B',
+            }
+          },
+          fontFamily: {
+            sans: ['"Noto Sans JP"', '"Hiragino Sans"', '"Hiragino Kaku Gothic ProN"', '"Yu Gothic UI"', '"Meiryo"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @media print {
+      .no-print { display: none !important; }
+      body { border-top: none !important; }
+      .rounded-xl { break-inside: avoid; }
+      .md\:flex-row { flex-direction: row !important; }
+      .md\:hidden { display: none !important; }
+      .hidden.md\:block { display: block !important; }
+      .md\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+      .sm\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+      .md\:mb-20 { margin-bottom: 5rem !important; }
+      .md\:py-16 { padding-top: 4rem !important; padding-bottom: 4rem !important; }
+      .bg-clip-text.text-transparent {
+        -webkit-background-clip: initial !important;
+        background-clip: initial !important;
+        color: #2563EB !important;
+        -webkit-text-fill-color: #2563EB !important;
+      }
+    }
+  </style>
+</head>
+<body class="bg-ads-bg text-slate-600 antialiased leading-relaxed border-t-4 border-ads-accent">
+  <div class="no-print max-w-3xl mx-auto px-5 pt-2 flex justify-end">
+    <button onclick="window.print()" class="flex items-center gap-1.5 text-xs text-ads-dim hover:text-ads-accent transition-colors cursor-pointer">
+      <i data-lucide="download" class="w-3.5 h-3.5"></i>
+      PDF
+    </button>
+  </div>
+  <main class="max-w-3xl mx-auto px-5 py-10 md:py-16">
+<!-- CONTENT_START -->
+
+<!-- ============================================================ -->
+<!--  HERO                                                        -->
+<!-- ============================================================ -->
+<div class="text-center mb-8 md:mb-10">
+  <div class="inline-flex items-center gap-2 bg-ads-accent/10 text-ads-accent-light px-4 py-1.5 rounded-full text-sm font-medium mb-6">
+    <i data-lucide="image" class="w-4 h-4"></i>
+    ツール活用
+  </div>
+  <h1 class="text-3xl md:text-5xl font-black text-slate-900 tracking-tight mb-6">
+    <span class="bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">図解生成ツール</span>の使い方
+  </h1>
+  <p class="text-lg text-ads-muted max-w-xl mx-auto leading-relaxed">
+    「○○を図解して」と話しかけるだけ。<br>
+    ひとことで言うと ──
+  </p>
+</div>
+
+<!-- ============================================================ -->
+<!--  ONE-PAGE SUMMARY                                            -->
+<!-- ============================================================ -->
+<div class="bg-ads-surface border border-ads-border rounded-2xl p-6 md:p-10 mb-6">
+  <div class="text-center mb-8 md:mb-10">
+    <p class="text-xl md:text-2xl font-black text-slate-900 mb-2">
+      AIに頼むだけで、<span class="text-ads-accent-light">プロ品質の図解</span>がURLで届く
+    </p>
+    <p class="text-sm text-ads-muted">
+      プログラミング不要。チャットで話しかけるだけで完成する
+    </p>
+  </div>
+
+  <!-- 3ステップフロー -->
+  <div class="flex flex-col md:flex-row items-center justify-center gap-2 md:gap-0 mb-8">
+    <!-- Step 1 -->
+    <div class="flex flex-col items-center w-40 p-4 bg-blue-500/10 border border-blue-500/20 rounded-2xl">
+      <div class="w-14 h-14 rounded-xl bg-blue-500/15 border border-blue-500/20 flex items-center justify-center mb-2.5">
+        <i data-lucide="message-square" class="w-7 h-7 text-blue-600"></i>
+      </div>
+      <div class="font-bold text-blue-700 text-sm text-center">チャットで依頼</div>
+      <div class="text-[11px] text-ads-muted mt-1 text-center">「Gitを図解して」</div>
+    </div>
+
+    <div class="flex items-center justify-center md:w-16 py-1 md:py-0">
+      <div class="flex flex-col items-center gap-0.5">
+        <i data-lucide="arrow-right" class="w-5 h-5 text-ads-accent hidden md:block"></i>
+        <i data-lucide="arrow-down" class="w-5 h-5 text-ads-accent md:hidden"></i>
+      </div>
+    </div>
+
+    <!-- Step 2 (centerpiece) -->
+    <div class="flex flex-col items-center w-44 p-4 bg-ads-accent/5 border-2 border-ads-accent/20 rounded-2xl">
+      <div class="w-16 h-16 rounded-2xl bg-ads-accent/15 border-2 border-ads-accent/30 flex items-center justify-center mb-2.5">
+        <i data-lucide="cpu" class="w-8 h-8 text-ads-accent-light"></i>
+      </div>
+      <div class="font-bold text-ads-accent-light text-base">AIが自動生成</div>
+      <div class="text-[11px] text-ads-muted mt-1 mb-2 text-center">情報収集〜HTML作成〜公開まで全自動</div>
+    </div>
+
+    <div class="flex items-center justify-center md:w-16 py-1 md:py-0">
+      <div class="flex flex-col items-center gap-0.5">
+        <i data-lucide="arrow-right" class="w-5 h-5 text-ads-accent hidden md:block"></i>
+        <i data-lucide="arrow-down" class="w-5 h-5 text-ads-accent md:hidden"></i>
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="flex flex-col items-center w-40 p-4 bg-emerald-500/10 border border-emerald-500/20 rounded-2xl">
+      <div class="w-14 h-14 rounded-xl bg-emerald-500/15 border border-emerald-500/20 flex items-center justify-center mb-2.5">
+        <i data-lucide="link" class="w-7 h-7 text-emerald-600"></i>
+      </div>
+      <div class="font-bold text-emerald-700 text-sm text-center">URLが届く</div>
+      <div class="text-[11px] text-ads-muted mt-1 text-center">そのままシェアできる</div>
+    </div>
+  </div>
+
+  <!-- 図解できるトピック例 -->
+  <div class="flex items-center gap-4 mb-5">
+    <div class="flex-1 border-t border-ads-border/50"></div>
+    <div class="text-[11px] text-ads-dim font-medium">こんなトピックを図解できる</div>
+    <div class="flex-1 border-t border-ads-border/50"></div>
+  </div>
+  <div class="flex flex-wrap justify-center gap-2">
+    <div class="flex items-center gap-1.5 bg-white border border-ads-border rounded-full px-3.5 py-1.5 text-xs text-slate-700">
+      <i data-lucide="git-branch" class="w-3.5 h-3.5 text-orange-500"></i>
+      Gitの使い方
+    </div>
+    <div class="flex items-center gap-1.5 bg-white border border-ads-border rounded-full px-3.5 py-1.5 text-xs text-slate-700">
+      <i data-lucide="arrow-left-right" class="w-3.5 h-3.5 text-blue-500"></i>
+      APIの仕組み
+    </div>
+    <div class="flex items-center gap-1.5 bg-white border border-ads-border rounded-full px-3.5 py-1.5 text-xs text-slate-700">
+      <i data-lucide="code-2" class="w-3.5 h-3.5 text-green-500"></i>
+      Pythonの基本
+    </div>
+    <div class="flex items-center gap-1.5 bg-white border border-ads-border rounded-full px-3.5 py-1.5 text-xs text-slate-700">
+      <i data-lucide="database" class="w-3.5 h-3.5 text-purple-500"></i>
+      データベースとは
+    </div>
+    <div class="flex items-center gap-1.5 bg-white border border-ads-border rounded-full px-3.5 py-1.5 text-xs text-slate-700">
+      <i data-lucide="brain" class="w-3.5 h-3.5 text-pink-500"></i>
+      機械学習とは
+    </div>
+  </div>
+</div>
+
+<p class="text-center text-ads-muted mb-16 md:mb-20">
+  ここから先で、具体的な手順をひとつずつ解説していきます。
+</p>
+
+
+<!-- ============================================================ -->
+<!--  SECTION 1: 3ステップで完成                                    -->
+<!-- ============================================================ -->
+<section class="mb-16 md:mb-20">
+  <div class="flex items-center gap-3 mb-8">
+    <div class="flex items-center justify-center w-10 h-10 rounded-lg bg-blue-500/10 flex-shrink-0">
+      <i data-lucide="list-ordered" class="w-5 h-5 text-blue-600"></i>
+    </div>
+    <h2 class="text-xl md:text-2xl font-bold text-slate-900">3ステップで完成する</h2>
+  </div>
+
+  <p class="mb-8 leading-relaxed">
+    難しい操作はありません。Cursorというエディタ（コードを書くためのソフト）を開いて、チャットで話しかけるだけです。あとはAIが全部やってくれます。
+  </p>
+
+  <!-- ステップ詳細 -->
+  <div class="space-y-4 mb-8">
+
+    <!-- Step 1 -->
+    <div class="bg-ads-surface border border-ads-border rounded-xl overflow-hidden">
+      <div class="flex items-center gap-4 px-6 py-4 bg-blue-500/5 border-b border-ads-border/50">
+        <div class="w-8 h-8 rounded-full bg-blue-500 text-white text-sm font-bold flex items-center justify-center flex-shrink-0">1</div>
+        <h3 class="font-bold text-slate-900">Cursorで「creating-visual-explainers」フォルダを開く</h3>
+      </div>
+      <div class="p-6">
+        <p class="text-sm text-ads-muted leading-relaxed mb-5">
+          Cursor（このアプリ）で、図解ツールのフォルダを開きます。すでにこのフォルダを開いていれば、この手順は完了しています。
+        </p>
+        <!-- エディタUIモック -->
+        <div class="rounded-xl overflow-hidden border border-slate-700/50">
+          <div class="flex items-center gap-3 bg-slate-800 px-4 py-2.5">
+            <div class="flex gap-1.5">
+              <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+              <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+              <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+            </div>
+            <div class="text-xs text-slate-400 flex items-center gap-1.5">
+              <i data-lucide="layout" class="w-3.5 h-3.5"></i>
+              Cursor
+            </div>
+          </div>
+          <div class="flex bg-slate-900 min-h-[120px]">
+            <!-- サイドバー -->
+            <div class="w-44 border-r border-slate-700/50 p-3 flex-shrink-0">
+              <div class="text-[10px] text-slate-500 font-medium mb-2 tracking-wider">エクスプローラー</div>
+              <div class="flex items-center gap-1.5 text-[11px] text-emerald-400 font-medium">
+                <i data-lucide="folder-open" class="w-3.5 h-3.5"></i>
+                creating-visual-explainers
+              </div>
+              <div class="pl-4 mt-1 space-y-1">
+                <div class="flex items-center gap-1 text-[10px] text-slate-400">
+                  <i data-lucide="folder" class="w-3 h-3"></i> output
+                </div>
+                <div class="flex items-center gap-1 text-[10px] text-slate-400">
+                  <i data-lucide="folder" class="w-3 h-3"></i> references
+                </div>
+                <div class="flex items-center gap-1 text-[10px] text-slate-400">
+                  <i data-lucide="file-text" class="w-3 h-3"></i> README.md
+                </div>
+              </div>
+            </div>
+            <!-- メインエリア -->
+            <div class="flex-1 flex items-center justify-center">
+              <div class="text-center text-slate-500">
+                <i data-lucide="check-circle" class="w-8 h-8 text-emerald-500 mx-auto mb-2"></i>
+                <div class="text-xs">フォルダが開いている状態</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="bg-ads-surface border border-ads-border rounded-xl overflow-hidden">
+      <div class="flex items-center gap-4 px-6 py-4 bg-ads-accent/5 border-b border-ads-border/50">
+        <div class="w-8 h-8 rounded-full bg-ads-accent text-white text-sm font-bold flex items-center justify-center flex-shrink-0">2</div>
+        <h3 class="font-bold text-slate-900">チャットで「○○を図解して」と入力する</h3>
+      </div>
+      <div class="p-6">
+        <p class="text-sm text-ads-muted leading-relaxed mb-5">
+          Cursorの右側にあるチャット欄（AIと会話できる画面）に、図解したいトピックを日本語で入力して送信します。「図解して」「図解を作って」などと書けば大丈夫です。
+        </p>
+        <!-- チャットUIモック -->
+        <div class="rounded-xl overflow-hidden border border-slate-700/50">
+          <div class="flex items-center gap-3 bg-slate-800 px-4 py-2.5">
+            <div class="flex gap-1.5">
+              <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+              <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+              <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+            </div>
+            <div class="text-xs text-slate-400 flex items-center gap-1.5">
+              <i data-lucide="message-square" class="w-3.5 h-3.5"></i>
+              Cursorのチャット
+            </div>
+          </div>
+          <div class="bg-slate-900 p-4 space-y-3">
+            <!-- ユーザーメッセージ1 -->
+            <div class="flex justify-end">
+              <div class="bg-ads-accent text-white text-xs rounded-2xl rounded-tr-sm px-4 py-2.5 max-w-[240px] leading-relaxed">
+                Gitを図解して
+              </div>
+            </div>
+            <!-- AIメッセージ -->
+            <div class="flex items-start gap-2">
+              <div class="w-6 h-6 rounded-full bg-ads-accent/20 border border-ads-accent/30 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <i data-lucide="cpu" class="w-3.5 h-3.5 text-ads-accent"></i>
+              </div>
+              <div class="bg-slate-800 text-slate-300 text-xs rounded-2xl rounded-tl-sm px-4 py-2.5 max-w-[240px] leading-relaxed">
+                Gitの図解を作成します。情報を収集して、わかりやすい図解HTMLを生成しますね。
+                <div class="mt-1.5 flex items-center gap-1 text-slate-500">
+                  <i data-lucide="loader" class="w-3 h-3 animate-spin"></i>
+                  <span class="text-[10px]">生成中...</span>
+                </div>
+              </div>
+            </div>
+            <!-- 入力欄 -->
+            <div class="flex items-center gap-2 bg-slate-800 border border-slate-600/50 rounded-xl px-3 py-2 mt-2">
+              <div class="flex-1 text-xs text-slate-500">例:「Dockerを図解して」「Pythonとは何かを図解して」</div>
+              <i data-lucide="send" class="w-4 h-4 text-ads-accent flex-shrink-0"></i>
+            </div>
+          </div>
+        </div>
+        <!-- 入力例カード -->
+        <div class="mt-4 bg-ads-accent/5 border border-ads-accent/20 rounded-xl p-4">
+          <div class="text-xs font-bold text-ads-accent-light mb-2 flex items-center gap-1.5">
+            <i data-lucide="lightbulb" class="w-3.5 h-3.5"></i>
+            こんなふうに入力してみよう
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+            <div class="bg-white rounded-lg px-3 py-2 text-xs text-slate-700 border border-ads-border/50 font-mono">「Gitを図解して」</div>
+            <div class="bg-white rounded-lg px-3 py-2 text-xs text-slate-700 border border-ads-border/50 font-mono">「APIの仕組みを図解して」</div>
+            <div class="bg-white rounded-lg px-3 py-2 text-xs text-slate-700 border border-ads-border/50 font-mono">「Dockerとは何かを図解して」</div>
+            <div class="bg-white rounded-lg px-3 py-2 text-xs text-slate-700 border border-ads-border/50 font-mono">「機械学習を図解してデプロイして」</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="bg-ads-surface border border-ads-border rounded-xl overflow-hidden">
+      <div class="flex items-center gap-4 px-6 py-4 bg-emerald-500/5 border-b border-ads-border/50">
+        <div class="w-8 h-8 rounded-full bg-emerald-500 text-white text-sm font-bold flex items-center justify-center flex-shrink-0">3</div>
+        <h3 class="font-bold text-slate-900">URLが届いたらシェアする</h3>
+      </div>
+      <div class="p-6">
+        <p class="text-sm text-ads-muted leading-relaxed mb-5">
+          AIが自動的に図解を作り、インターネット上に公開します。チャットに公開URLが届いたら完成です。そのURLを誰かに送れば、すぐに図解を見てもらえます。
+        </p>
+        <!-- 完成報告チャットモック -->
+        <div class="rounded-xl overflow-hidden border border-slate-700/50">
+          <div class="flex items-center gap-3 bg-slate-800 px-4 py-2.5">
+            <div class="flex gap-1.5">
+              <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+              <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+              <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+            </div>
+            <div class="text-xs text-slate-400 flex items-center gap-1.5">
+              <i data-lucide="message-square" class="w-3.5 h-3.5"></i>
+              Cursorのチャット
+            </div>
+          </div>
+          <div class="bg-slate-900 p-4">
+            <div class="flex items-start gap-2">
+              <div class="w-6 h-6 rounded-full bg-ads-accent/20 border border-ads-accent/30 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <i data-lucide="cpu" class="w-3.5 h-3.5 text-ads-accent"></i>
+              </div>
+              <div class="bg-slate-800 text-slate-300 text-xs rounded-2xl rounded-tl-sm px-4 py-3 max-w-[280px] leading-relaxed">
+                <div class="font-bold text-emerald-400 mb-2">完成・公開完了: Gitの仕組み</div>
+                <div class="text-slate-400 mb-3">Gitのコミット・ブランチ・マージの仕組みを、身近なたとえと図で解説した図解です。</div>
+                <div class="text-slate-500 text-[10px] mb-1">公開URL:</div>
+                <div class="bg-slate-700 rounded-lg px-2.5 py-1.5 flex items-center gap-1.5">
+                  <i data-lucide="link" class="w-3 h-3 text-ads-accent flex-shrink-0"></i>
+                  <span class="text-ads-accent text-[10px] break-all">https://diagram-git.surge.sh</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================================================ -->
+<!--  SECTION 2: AIが裏側でやっていること                            -->
+<!-- ============================================================ -->
+<section class="mb-16 md:mb-20">
+  <div class="flex items-center gap-3 mb-8">
+    <div class="flex items-center justify-center w-10 h-10 rounded-lg bg-purple-500/10 flex-shrink-0">
+      <i data-lucide="cpu" class="w-5 h-5 text-purple-600"></i>
+    </div>
+    <h2 class="text-xl md:text-2xl font-bold text-slate-900">AIが裏側でやっていること</h2>
+  </div>
+
+  <p class="mb-8 leading-relaxed">
+    「図解して」と送信してからURLが届くまでの間、AIは自動的に以下の作業を行っています。あなたは待つだけで大丈夫です。
+  </p>
+
+  <div class="flex flex-col md:flex-row items-stretch justify-center gap-3 md:gap-0 mb-8">
+    <div class="flex-1 bg-blue-500/10 border border-blue-500/20 rounded-xl p-4 text-center">
+      <div class="w-8 h-8 rounded-full bg-blue-500 text-white text-sm font-bold flex items-center justify-center mx-auto mb-3">1</div>
+      <i data-lucide="search" class="w-6 h-6 text-blue-600 mx-auto mb-2"></i>
+      <div class="font-bold text-blue-700 text-sm mb-1">情報収集</div>
+      <div class="text-xs text-ads-muted leading-relaxed">ウェブで正確な情報を<br>2〜3回検索して収集する</div>
+    </div>
+    <div class="flex items-center justify-center md:w-10 py-1 md:py-0">
+      <i data-lucide="chevron-right" class="w-5 h-5 text-ads-dim hidden md:block"></i>
+      <i data-lucide="chevron-down" class="w-5 h-5 text-ads-dim md:hidden"></i>
+    </div>
+    <div class="flex-1 bg-purple-500/10 border border-purple-500/20 rounded-xl p-4 text-center">
+      <div class="w-8 h-8 rounded-full bg-purple-500 text-white text-sm font-bold flex items-center justify-center mx-auto mb-3">2</div>
+      <i data-lucide="layout" class="w-6 h-6 text-purple-600 mx-auto mb-2"></i>
+      <div class="font-bold text-purple-700 text-sm mb-1">図解を設計</div>
+      <div class="text-xs text-ads-muted leading-relaxed">わかりやすい構成・<br>レイアウトを考える</div>
+    </div>
+    <div class="flex items-center justify-center md:w-10 py-1 md:py-0">
+      <i data-lucide="chevron-right" class="w-5 h-5 text-ads-dim hidden md:block"></i>
+      <i data-lucide="chevron-down" class="w-5 h-5 text-ads-dim md:hidden"></i>
+    </div>
+    <div class="flex-1 bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-4 text-center">
+      <div class="w-8 h-8 rounded-full bg-emerald-500 text-white text-sm font-bold flex items-center justify-center mx-auto mb-3">3</div>
+      <i data-lucide="code" class="w-6 h-6 text-emerald-600 mx-auto mb-2"></i>
+      <div class="font-bold text-emerald-700 text-sm mb-1">HTMLを作成</div>
+      <div class="text-xs text-ads-muted leading-relaxed">ファイルとして<br>outputフォルダに保存する</div>
+    </div>
+    <div class="flex items-center justify-center md:w-10 py-1 md:py-0">
+      <i data-lucide="chevron-right" class="w-5 h-5 text-ads-dim hidden md:block"></i>
+      <i data-lucide="chevron-down" class="w-5 h-5 text-ads-dim md:hidden"></i>
+    </div>
+    <div class="flex-1 bg-amber-500/10 border border-amber-500/20 rounded-xl p-4 text-center">
+      <div class="w-8 h-8 rounded-full bg-amber-500 text-white text-sm font-bold flex items-center justify-center mx-auto mb-3">4</div>
+      <i data-lucide="globe" class="w-6 h-6 text-amber-600 mx-auto mb-2"></i>
+      <div class="font-bold text-amber-700 text-sm mb-1">ネットに公開</div>
+      <div class="text-xs text-ads-muted leading-relaxed">URLを発行して<br>誰でも見られる状態にする</div>
+    </div>
+  </div>
+
+  <div class="bg-ads-accent/5 border border-ads-accent/20 rounded-xl p-5">
+    <div class="flex items-start gap-3">
+      <div class="flex items-center justify-center w-8 h-8 rounded-lg bg-ads-accent/10 flex-shrink-0 mt-0.5">
+        <i data-lucide="lightbulb" class="w-4 h-4 text-ads-accent-light"></i>
+      </div>
+      <div>
+        <p class="font-bold text-ads-accent-light mb-1">公開先は「surge.sh」というサービス</p>
+        <p class="text-ads-muted leading-relaxed text-sm">
+          図解は <strong class="text-slate-800">surge.sh（サージ）</strong> というウェブ公開サービスに自動アップロードされます。無料で使えるサービスで、初回のみメールアドレスとパスワードの登録が必要です。登録はAIの指示に従えば1分で完了します。
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================ -->
+<!--  SECTION 3: よくある質問                                       -->
+<!-- ============================================================ -->
+<section class="mb-16 md:mb-20">
+  <div class="flex items-center gap-3 mb-8">
+    <div class="flex items-center justify-center w-10 h-10 rounded-lg bg-amber-500/10 flex-shrink-0">
+      <i data-lucide="help-circle" class="w-5 h-5 text-amber-600"></i>
+    </div>
+    <h2 class="text-xl md:text-2xl font-bold text-slate-900">よくある疑問</h2>
+  </div>
+
+  <div class="space-y-3">
+
+    <div class="bg-ads-surface border border-ads-border rounded-xl overflow-hidden">
+      <div class="flex items-center gap-3 px-6 py-4 border-b border-ads-border/50">
+        <i data-lucide="message-circle" class="w-4 h-4 text-amber-500 flex-shrink-0"></i>
+        <h3 class="font-bold text-slate-900 text-sm">図解したいトピックは何でも大丈夫？</h3>
+      </div>
+      <div class="px-6 py-4">
+        <p class="text-sm text-ads-muted leading-relaxed">
+          基本的に何でも図解できます。ITの技術（Git、API、クラウドなど）はもちろん、ビジネスの概念（マーケティング、プロジェクト管理など）も対応しています。ただし、情報が少ないニッチなトピックは、AIが収集できる情報が限られるため、品質が下がる場合があります。
+        </p>
+      </div>
+    </div>
+
+    <div class="bg-ads-surface border border-ads-border rounded-xl overflow-hidden">
+      <div class="flex items-center gap-3 px-6 py-4 border-b border-ads-border/50">
+        <i data-lucide="message-circle" class="w-4 h-4 text-amber-500 flex-shrink-0"></i>
+        <h3 class="font-bold text-slate-900 text-sm">URLはずっと使い続けられる？</h3>
+      </div>
+      <div class="px-6 py-4">
+        <p class="text-sm text-ads-muted leading-relaxed">
+          surge.shの仕様上、基本的には使い続けられます。ただし、不要になった図解は「この図解を削除して」とチャットで伝えることで削除できます。
+        </p>
+      </div>
+    </div>
+
+    <div class="bg-ads-surface border border-ads-border rounded-xl overflow-hidden">
+      <div class="flex items-center gap-3 px-6 py-4 border-b border-ads-border/50">
+        <i data-lucide="message-circle" class="w-4 h-4 text-amber-500 flex-shrink-0"></i>
+        <h3 class="font-bold text-slate-900 text-sm">生成された図解の内容を修正できる？</h3>
+      </div>
+      <div class="px-6 py-4">
+        <p class="text-sm text-ads-muted leading-relaxed">
+          できます。「もっとシンプルにして」「この部分をわかりやすく書き直して」のように、チャットで指示すれば修正してくれます。一から作り直すこともできます。
+        </p>
+      </div>
+    </div>
+
+    <div class="bg-ads-surface border border-ads-border rounded-xl overflow-hidden">
+      <div class="flex items-center gap-3 px-6 py-4 border-b border-ads-border/50">
+        <i data-lucide="message-circle" class="w-4 h-4 text-amber-500 flex-shrink-0"></i>
+        <h3 class="font-bold text-slate-900 text-sm">公開せずにローカルだけで確認したい</h3>
+      </div>
+      <div class="px-6 py-4">
+        <p class="text-sm text-ads-muted leading-relaxed">
+          「公開しないで」と伝えれば、HTMLファイルだけ作成してURLは発行しません。作成されたファイルは <strong class="text-slate-800">outputフォルダ</strong> に保存されるので、ブラウザにドラッグ＆ドロップすると手元で確認できます。あとで「この図解を公開して」と伝えれば公開できます。
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================================================ -->
+<!--  SECTION 4: まとめ                                            -->
+<!-- ============================================================ -->
+<section>
+  <div class="flex items-center gap-3 mb-8">
+    <div class="flex items-center justify-center w-10 h-10 rounded-lg bg-ads-accent/10 flex-shrink-0">
+      <i data-lucide="check-circle" class="w-5 h-5 text-ads-accent-light"></i>
+    </div>
+    <h2 class="text-xl md:text-2xl font-bold text-slate-900">覚えることは1つだけ</h2>
+  </div>
+
+  <div class="bg-ads-surface border border-ads-border rounded-xl p-6 border-l-4 border-l-ads-accent mb-6">
+    <div class="flex items-start gap-4">
+      <div class="text-2xl font-black text-ads-accent leading-none flex-shrink-0 mt-1">
+        <i data-lucide="zap" class="w-7 h-7"></i>
+      </div>
+      <div>
+        <h3 class="font-bold text-slate-900 mb-2 text-lg">「○○を図解して」と入力するだけ</h3>
+        <p class="text-ads-muted leading-relaxed">
+          これだけです。情報収集・デザイン・HTML作成・公開、すべてAIがやります。あなたはトピックを決めて、届いたURLをシェアするだけ。プログラミングの知識は一切不要です。
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-center bg-gradient-to-b from-ads-accent/5 to-transparent border border-ads-accent/10 rounded-xl p-8 md:p-10">
+    <i data-lucide="message-square" class="w-8 h-8 text-ads-accent mx-auto mb-4"></i>
+    <p class="text-lg font-bold text-slate-900 mb-3">さっそく試してみましょう</p>
+    <p class="text-ads-muted max-w-lg mx-auto leading-relaxed mb-6">
+      Cursorのチャット欄に、図解したいトピックを入力してみてください。
+    </p>
+    <div class="inline-flex items-center gap-2 bg-white border-2 border-ads-accent/30 rounded-xl px-6 py-3 text-ads-accent-light font-bold text-sm">
+      <i data-lucide="edit-3" class="w-4 h-4"></i>
+      「Gitを図解して」
+    </div>
+  </div>
+</section>
+
+<!-- CONTENT_END -->
+  </main>
+  <footer class="max-w-3xl mx-auto px-5 pb-10 pt-6 border-t border-ads-border/30">
+    <p class="text-xs text-ads-dim text-center">AI-Driven School の図解ツールで作成</p>
+  </footer>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>lucide.createIcons();</script>
+</body>
+</html>

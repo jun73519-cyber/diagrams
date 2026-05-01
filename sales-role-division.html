@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta property="og:title" content="営業事務の役割分担ガイド">
+  <meta property="og:description" content="営業事務2名（野添・宮坂）の業務フローと役割分担を一目で把握できる図解。誰に何を依頼すればよいかがわかります。">
+  <meta property="og:type" content="article">
+  <title>営業事務の役割分担ガイド</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23FFFFFF'/><rect x='8' y='8' width='84' height='84' rx='14' fill='none' stroke='%233B82F6' stroke-width='4'/><circle cx='32' cy='40' r='10' fill='%233B82F6' opacity='0.8'/><circle cx='68' cy='40' r='10' fill='%2360A5FA' opacity='0.8'/><rect x='25' y='62' width='50' height='6' rx='3' fill='%2394A3B8' opacity='0.6'/><rect x='30' y='74' width='40' height='6' rx='3' fill='%2394A3B8' opacity='0.3'/></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ads: {
+              bg: '#FFFFFF',
+              surface: '#F8FAFC',
+              hover: '#F1F5F9',
+              border: '#E2E8F0',
+              accent: '#3B82F6',
+              'accent-light': '#2563EB',
+              text: '#1E293B',
+              muted: '#64748B',
+              dim: '#94A3B8',
+              positive: '#10B981',
+              negative: '#EF4444',
+              warning: '#F59E0B',
+            }
+          },
+          fontFamily: {
+            sans: ['"Noto Sans JP"', '"Hiragino Sans"', '"Hiragino Kaku Gothic ProN"', '"Yu Gothic UI"', '"Meiryo"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @media print {
+      .no-print { display: none !important; }
+      body { border-top: none !important; }
+      .rounded-xl { break-inside: avoid; }
+      .md\:flex-row { flex-direction: row !important; }
+      .md\:hidden { display: none !important; }
+      .hidden.md\:block { display: block !important; }
+      .md\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+      .sm\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+      .md\:mb-20 { margin-bottom: 5rem !important; }
+      .md\:py-16 { padding-top: 4rem !important; padding-bottom: 4rem !important; }
+      .bg-clip-text.text-transparent {
+        -webkit-background-clip: initial !important;
+        background-clip: initial !important;
+        color: #2563EB !important;
+        -webkit-text-fill-color: #2563EB !important;
+      }
+    }
+  </style>
+</head>
+<body class="bg-ads-bg text-slate-600 antialiased leading-relaxed border-t-4 border-ads-accent">
+  <div class="no-print max-w-3xl mx-auto px-5 pt-2 flex justify-end">
+    <button onclick="window.print()" class="flex items-center gap-1.5 text-xs text-ads-dim hover:text-ads-accent transition-colors cursor-pointer">
+      <i data-lucide="download" class="w-3.5 h-3.5"></i>
+      PDF
+    </button>
+  </div>
+  <main class="max-w-3xl mx-auto px-5 py-10 md:py-16">
+<!-- CONTENT_START -->
+
+<!-- ============================================================ -->
+<!--  HERO                                                        -->
+<!-- ============================================================ -->
+<div class="text-center mb-8 md:mb-10">
+  <div class="inline-flex items-center gap-2 bg-ads-accent/10 text-ads-accent-light px-4 py-1.5 rounded-full text-sm font-medium mb-6">
+    <i data-lucide="users" class="w-4 h-4"></i>
+    営業事務ガイド
+  </div>
+  <h1 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tight mb-6">
+    営業事務の<span class="bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">役割分担</span>ガイド
+  </h1>
+  <p class="text-lg text-ads-muted max-w-xl mx-auto leading-relaxed">
+    「誰に頼めばいい？」をこの1枚で解決。<br>
+    ひとことで言うと ──
+  </p>
+</div>
+
+<!-- ============================================================ -->
+<!--  ONE-PAGE SUMMARY: 担当者紹介 + 凡例                           -->
+<!-- ============================================================ -->
+<div class="bg-ads-surface border border-ads-border rounded-2xl p-6 md:p-10 mb-6">
+  <div class="text-center mb-8">
+    <p class="text-xl md:text-2xl font-black text-slate-900 mb-2">
+      担当は<span class="text-blue-600">野添</span>と<span class="text-emerald-600">宮坂</span>の2名体制
+    </p>
+    <p class="text-sm text-ads-muted">業務領域は別々。この色で担当を見分けてください</p>
+  </div>
+
+  <!-- 担当者カード -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
+    <!-- 野添 -->
+    <div class="bg-blue-500/5 border-2 border-blue-500/20 rounded-2xl p-6">
+      <div class="flex items-center gap-4 mb-5">
+        <div class="w-14 h-14 rounded-2xl bg-blue-500/15 border-2 border-blue-500/25 flex items-center justify-center flex-shrink-0">
+          <i data-lucide="user" class="w-7 h-7 text-blue-600"></i>
+        </div>
+        <div>
+          <div class="text-xl font-black text-blue-700">野添（のぞえ）</div>
+          <div class="text-xs text-blue-600/70 mt-0.5">受注〜出荷・請求・契約更新</div>
+        </div>
+      </div>
+      <div class="space-y-2">
+        <div class="flex items-center gap-2 text-sm text-slate-700">
+          <i data-lucide="check" class="w-4 h-4 text-blue-500 flex-shrink-0"></i>受注処理・仕入れ品の発注
+        </div>
+        <div class="flex items-center gap-2 text-sm text-slate-700">
+          <i data-lucide="check" class="w-4 h-4 text-blue-500 flex-shrink-0"></i>出荷作業・納品書・請求書の発送
+        </div>
+        <div class="flex items-center gap-2 text-sm text-slate-700">
+          <i data-lucide="check" class="w-4 h-4 text-blue-500 flex-shrink-0"></i>売上集計・販売データのメール配布（毎金曜）
+        </div>
+        <div class="flex items-center gap-2 text-sm text-slate-700">
+          <i data-lucide="check" class="w-4 h-4 text-blue-500 flex-shrink-0"></i>契約更新・解約処理
+        </div>
+      </div>
+    </div>
+    <!-- 宮坂 -->
+    <div class="bg-emerald-500/5 border-2 border-emerald-500/20 rounded-2xl p-6">
+      <div class="flex items-center gap-4 mb-5">
+        <div class="w-14 h-14 rounded-2xl bg-emerald-500/15 border-2 border-emerald-500/25 flex items-center justify-center flex-shrink-0">
+          <i data-lucide="user" class="w-7 h-7 text-emerald-600"></i>
+        </div>
+        <div>
+          <div class="text-xl font-black text-emerald-700">宮坂</div>
+          <div class="text-xs text-emerald-600/70 mt-0.5">ユーザ登録・サポート更新準備</div>
+        </div>
+      </div>
+      <div class="space-y-2">
+        <div class="flex items-center gap-2 text-sm text-slate-700">
+          <i data-lucide="check" class="w-4 h-4 text-emerald-500 flex-shrink-0"></i>保守の見積書作成・送付
+        </div>
+        <div class="flex items-center gap-2 text-sm text-slate-700">
+          <i data-lucide="check" class="w-4 h-4 text-emerald-500 flex-shrink-0"></i>インストール後のユーザ登録処理
+        </div>
+        <div class="flex items-center gap-2 text-sm text-slate-700">
+          <i data-lucide="check" class="w-4 h-4 text-emerald-500 flex-shrink-0"></i>サポート更新シートの作成・送付準備
+        </div>
+        <div class="flex items-center gap-2 text-sm text-slate-700">
+          <i data-lucide="check" class="w-4 h-4 text-emerald-500 flex-shrink-0"></i>更新2ヶ月前のターゲットリスト作成
+        </div>
+        <div class="flex items-center gap-2 text-sm text-slate-700">
+          <i data-lucide="check" class="w-4 h-4 text-emerald-500 flex-shrink-0"></i>営業へのコメント反映・更新案内の送付
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 色の凡例 -->
+  <div class="flex flex-wrap justify-center gap-3">
+    <div class="flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 rounded-full px-4 py-1.5 text-xs font-bold text-blue-700">
+      <div class="w-3 h-3 rounded-full bg-blue-500"></div>
+      青 = 野添が担当
+    </div>
+    <div class="flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full px-4 py-1.5 text-xs font-bold text-emerald-700">
+      <div class="w-3 h-3 rounded-full bg-emerald-500"></div>
+      緑 = 宮坂が担当
+    </div>
+    <div class="flex items-center gap-2 bg-amber-500/10 border border-amber-500/20 rounded-full px-4 py-1.5 text-xs font-bold text-amber-700">
+      <div class="w-3 h-3 rounded-full bg-amber-500"></div>
+      オレンジ = 営業チームのアクション
+    </div>
+  </div>
+</div>
+
+<p class="text-center text-ads-muted mb-16 md:mb-20">
+  ここから先で、業務フローと役割分担をひとつずつ説明します。
+</p>
+
+
+<!-- ============================================================ -->
+<!--  SECTION 1: 全体業務フロー                                     -->
+<!-- ============================================================ -->
+<section class="mb-16 md:mb-20">
+  <div class="flex items-center gap-3 mb-8">
+    <div class="flex items-center justify-center w-10 h-10 rounded-lg bg-ads-accent/10 flex-shrink-0">
+      <i data-lucide="git-merge" class="w-5 h-5 text-ads-accent-light"></i>
+    </div>
+    <h2 class="text-xl md:text-2xl font-bold text-slate-900">全体の業務フロー</h2>
+  </div>
+
+  <p class="mb-8 leading-relaxed">
+    受注から請求・サポート管理まで、業務は大きく7つのフェーズに分かれます。各ステップに担当者を色で示します。
+  </p>
+
+  <!-- フローステップ -->
+  <div class="space-y-3 mb-8">
+
+    <!-- Step 1: 見積 -->
+    <div class="flex gap-3 items-stretch">
+      <div class="flex flex-col items-center gap-0 flex-shrink-0 pt-1">
+        <div class="w-8 h-8 rounded-full bg-amber-500 text-white text-sm font-bold flex items-center justify-center">1</div>
+        <div class="w-0.5 bg-ads-border flex-1 my-1"></div>
+      </div>
+      <div class="flex-1 pb-3">
+        <div class="bg-ads-surface border border-ads-border rounded-xl p-4">
+          <div class="flex flex-col md:flex-row md:items-start gap-3">
+            <div class="flex-1">
+              <div class="flex items-center gap-2 mb-1">
+                <div class="inline-flex items-center gap-1.5 bg-amber-500/10 text-amber-700 rounded-full px-2.5 py-0.5 text-xs font-bold">
+                  <i data-lucide="briefcase" class="w-3 h-3"></i>営業のアクション
+                </div>
+              </div>
+              <div class="font-bold text-slate-900">引き合い・見積</div>
+              <div class="text-sm text-ads-muted mt-1">顧客からの問い合わせ対応・CRM登録・<strong class="text-amber-700">製品の見積書作成</strong>は営業が担当</div>
+            </div>
+            <div class="flex-1 border-t md:border-t-0 md:border-l border-ads-border/60 pt-3 md:pt-0 md:pl-4">
+              <div class="flex items-center gap-1.5 bg-emerald-500/10 text-emerald-700 rounded-full px-2.5 py-0.5 text-xs font-bold mb-2 w-fit">
+                <i data-lucide="user" class="w-3 h-3"></i>宮坂が対応
+              </div>
+              <ul class="text-sm text-ads-muted space-y-0.5">
+                <li>・<strong class="text-slate-700">保守の見積書</strong>の作成・送付</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2: 受注 -->
+    <div class="flex gap-3 items-stretch">
+      <div class="flex flex-col items-center gap-0 flex-shrink-0 pt-1">
+        <div class="w-8 h-8 rounded-full bg-amber-500 text-white text-sm font-bold flex items-center justify-center">2</div>
+        <div class="w-0.5 bg-ads-border flex-1 my-1"></div>
+      </div>
+      <div class="flex-1 pb-3">
+        <div class="bg-ads-surface border border-ads-border rounded-xl p-4">
+          <div class="flex flex-col md:flex-row md:items-center gap-3">
+            <div class="flex-1">
+              <div class="flex items-center gap-2 mb-1">
+                <div class="inline-flex items-center gap-1.5 bg-amber-500/10 text-amber-700 rounded-full px-2.5 py-0.5 text-xs font-bold">
+                  <i data-lucide="briefcase" class="w-3 h-3"></i>営業のアクション
+                </div>
+              </div>
+              <div class="font-bold text-slate-900">注文書の受領</div>
+              <div class="text-sm text-ads-muted mt-1">顧客から注文書が届く（EDI・メールなど）</div>
+            </div>
+            <div class="flex-1 border-t md:border-t-0 md:border-l border-ads-border/60 pt-3 md:pt-0 md:pl-4">
+              <div class="flex items-center gap-1.5 bg-blue-500/10 text-blue-700 rounded-full px-2.5 py-0.5 text-xs font-bold mb-2 w-fit">
+                <i data-lucide="user" class="w-3 h-3"></i>野添が対応
+              </div>
+              <ul class="text-sm text-ads-muted space-y-1">
+                <li class="flex items-center gap-1.5"><i data-lucide="hash" class="w-3.5 h-3.5 text-blue-400 flex-shrink-0"></i>受注No.を割り当て、価格・納期を確認</li>
+                <li class="flex items-center gap-1.5"><i data-lucide="shopping-cart" class="w-3.5 h-3.5 text-blue-400 flex-shrink-0"></i>仕入れ品が必要な場合は発注</li>
+                <li class="flex items-center gap-1.5"><i data-lucide="folder" class="w-3.5 h-3.5 text-blue-400 flex-shrink-0"></i>製造依頼・ライセンス証書等作成</li>
+                <li class="flex items-center gap-1.5"><i data-lucide="bell" class="w-3.5 h-3.5 text-blue-400 flex-shrink-0"></i>受注報告の連絡（毎日）</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3: 製造・仕入れ（製造部門） -->
+    <div class="flex gap-3 items-stretch">
+      <div class="flex flex-col items-center gap-0 flex-shrink-0 pt-1">
+        <div class="w-8 h-8 rounded-full bg-slate-400 text-white text-sm font-bold flex items-center justify-center">3</div>
+        <div class="w-0.5 bg-ads-border flex-1 my-1"></div>
+      </div>
+      <div class="flex-1 pb-3">
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-4">
+          <div class="font-bold text-slate-700 mb-1 flex items-center gap-2">
+            <i data-lucide="settings" class="w-4 h-4 text-slate-500"></i>
+            製造部門が対応（営業事務の担当外）
+          </div>
+          <div class="text-sm text-slate-500">シリアルNo.割り当て・製品製造・品質チェック・仕入れ品納入</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 4: 出荷・納品 -->
+    <div class="flex gap-3 items-stretch">
+      <div class="flex flex-col items-center gap-0 flex-shrink-0 pt-1">
+        <div class="w-8 h-8 rounded-full bg-blue-500 text-white text-sm font-bold flex items-center justify-center">4</div>
+        <div class="w-0.5 bg-ads-border flex-1 my-1"></div>
+      </div>
+      <div class="flex-1 pb-3">
+        <div class="bg-blue-500/5 border border-blue-500/20 rounded-xl p-4">
+          <div class="flex items-center gap-1.5 bg-blue-500/10 text-blue-700 rounded-full px-2.5 py-0.5 text-xs font-bold mb-3 w-fit">
+            <i data-lucide="user" class="w-3 h-3"></i>野添が対応
+          </div>
+          <div class="font-bold text-slate-900 mb-2">出荷・納品処理</div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+            <ul class="text-sm text-ads-muted space-y-1">
+              <li class="flex items-center gap-1.5"><i data-lucide="pen-line" class="w-3.5 h-3.5 text-blue-400 flex-shrink-0"></i>注文書にシリアルNo.を記入</li>
+              <li class="flex items-center gap-1.5"><i data-lucide="clipboard-check" class="w-3.5 h-3.5 text-blue-400 flex-shrink-0"></i>品質チェックシートに出荷日を記入</li>
+              <li class="flex items-center gap-1.5"><i data-lucide="map-pin" class="w-3.5 h-3.5 text-blue-400 flex-shrink-0"></i>出荷先・出荷日・バージョンを記録</li>
+            </ul>
+            <ul class="text-sm text-ads-muted space-y-1">
+              <li class="flex items-center gap-1.5"><i data-lucide="send" class="w-3.5 h-3.5 text-blue-400 flex-shrink-0"></i>納品書・メディア・請求書を発送</li>
+              <li class="flex items-center gap-1.5"><i data-lucide="monitor-check" class="w-3.5 h-3.5 text-blue-400 flex-shrink-0"></i>納入機器システムを「出荷済」に更新</li>
+              <li class="flex items-center gap-1.5"><i data-lucide="table" class="w-3.5 h-3.5 text-blue-400 flex-shrink-0"></i>請求エクセルに記入（週末）</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 5: 請求・売上 -->
+    <div class="flex gap-3 items-stretch">
+      <div class="flex flex-col items-center gap-0 flex-shrink-0 pt-1">
+        <div class="w-8 h-8 rounded-full bg-blue-500 text-white text-sm font-bold flex items-center justify-center">5</div>
+        <div class="w-0.5 bg-ads-border flex-1 my-1"></div>
+      </div>
+      <div class="flex-1 pb-3">
+        <div class="bg-blue-500/5 border border-blue-500/20 rounded-xl p-4">
+          <div class="flex items-center gap-1.5 bg-blue-500/10 text-blue-700 rounded-full px-2.5 py-0.5 text-xs font-bold mb-3 w-fit">
+            <i data-lucide="user" class="w-3 h-3"></i>野添が対応
+          </div>
+          <div class="font-bold text-slate-900 mb-2">請求・売上集計</div>
+          <ul class="text-sm text-ads-muted space-y-1">
+            <li class="flex items-center gap-1.5"><i data-lucide="file-text" class="w-3.5 h-3.5 text-blue-400 flex-shrink-0"></i>請求書または購買向け納品書を作成</li>
+            <li class="flex items-center gap-1.5"><i data-lucide="bar-chart-2" class="w-3.5 h-3.5 text-blue-400 flex-shrink-0"></i>売上を集計する</li>
+            <li class="flex items-center gap-1.5"><i data-lucide="mail" class="w-3.5 h-3.5 text-blue-400 flex-shrink-0"></i>販売データを毎金曜日にメール配布</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 6: ユーザ登録 -->
+    <div class="flex gap-3 items-stretch">
+      <div class="flex flex-col items-center gap-0 flex-shrink-0 pt-1">
+        <div class="w-8 h-8 rounded-full bg-emerald-500 text-white text-sm font-bold flex items-center justify-center">6</div>
+        <div class="w-0.5 bg-ads-border flex-1 my-1"></div>
+      </div>
+      <div class="flex-1 pb-3">
+        <div class="bg-emerald-500/5 border border-emerald-500/20 rounded-xl p-4">
+          <div class="flex items-center gap-1.5 bg-emerald-500/10 text-emerald-700 rounded-full px-2.5 py-0.5 text-xs font-bold mb-3 w-fit">
+            <i data-lucide="user" class="w-3 h-3"></i>宮坂が対応
+          </div>
+          <div class="font-bold text-slate-900 mb-2">インストール完了後のユーザ登録</div>
+          <ul class="text-sm text-ads-muted space-y-1">
+            <li class="flex items-center gap-1.5"><i data-lucide="mail" class="w-3.5 h-3.5 text-emerald-400 flex-shrink-0"></i>システムから宮坂宛にメールが届く</li>
+            <li class="flex items-center gap-1.5"><i data-lucide="user-check" class="w-3.5 h-3.5 text-emerald-400 flex-shrink-0"></i>納入機器システムで「ユーザ登録済」に更新</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 7: サポート管理 -->
+    <div class="flex gap-3">
+      <div class="flex flex-col items-center gap-0 flex-shrink-0 pt-1">
+        <div class="w-8 h-8 rounded-full bg-purple-500 text-white text-sm font-bold flex items-center justify-center">7</div>
+      </div>
+      <div class="flex-1">
+        <div class="bg-purple-500/5 border border-purple-500/20 rounded-xl p-4">
+          <div class="font-bold text-slate-900 mb-3">サポート更新・契約管理</div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <div class="flex items-center gap-1.5 bg-emerald-500/10 text-emerald-700 rounded-full px-2.5 py-0.5 text-xs font-bold mb-2 w-fit">
+                <i data-lucide="user" class="w-3 h-3"></i>宮坂：更新準備
+              </div>
+              <ul class="text-sm text-ads-muted space-y-1">
+                <li class="flex items-center gap-1.5"><i data-lucide="list" class="w-3.5 h-3.5 text-emerald-400 flex-shrink-0"></i>更新2ヶ月前にターゲットリスト作成</li>
+                <li class="flex items-center gap-1.5"><i data-lucide="cloud" class="w-3.5 h-3.5 text-emerald-400 flex-shrink-0"></i>エクセルリストをOneDriveに保存</li>
+                <li class="flex items-center gap-1.5"><i data-lucide="message-circle" class="w-3.5 h-3.5 text-emerald-400 flex-shrink-0"></i>営業へ確認依頼 → コメント反映</li>
+                <li class="flex items-center gap-1.5"><i data-lucide="send" class="w-3.5 h-3.5 text-emerald-400 flex-shrink-0"></i>サポート更新シート（PDF）作成・送付</li>
+              </ul>
+            </div>
+            <div>
+              <div class="flex items-center gap-1.5 bg-blue-500/10 text-blue-700 rounded-full px-2.5 py-0.5 text-xs font-bold mb-2 w-fit">
+                <i data-lucide="user" class="w-3 h-3"></i>野添：契約更新・解約処理
+              </div>
+              <ul class="text-sm text-ads-muted space-y-1">
+                <li class="flex items-center gap-1.5"><i data-lucide="calendar" class="w-3.5 h-3.5 text-blue-400 flex-shrink-0"></i>更新時：納入機器システムの日付・状態を更新</li>
+                <li class="flex items-center gap-1.5"><i data-lucide="x-circle" class="w-3.5 h-3.5 text-blue-400 flex-shrink-0"></i>解約時：「サポート対象外」に変更・記録</li>
+              </ul>
+              <div class="flex items-center gap-1.5 bg-emerald-500/10 text-emerald-700 rounded-full px-2.5 py-0.5 text-xs font-bold mt-3 mb-2 w-fit">
+                <i data-lucide="user" class="w-3 h-3"></i>宮坂：保守切れ対応
+              </div>
+              <ul class="text-sm text-ads-muted space-y-1">
+                <li class="flex items-center gap-1.5"><i data-lucide="phone-call" class="w-3.5 h-3.5 text-emerald-400 flex-shrink-0"></i>前月の保守切れリストを作成・客先へ連絡</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================================================ -->
+<!--  SECTION 2: 役割分担の早見表                                   -->
+<!-- ============================================================ -->
+<section class="mb-16 md:mb-20">
+  <div class="flex items-center gap-3 mb-8">
+    <div class="flex items-center justify-center w-10 h-10 rounded-lg bg-purple-500/10 flex-shrink-0">
+      <i data-lucide="table" class="w-5 h-5 text-purple-600"></i>
+    </div>
+    <h2 class="text-xl md:text-2xl font-bold text-slate-900">役割分担の早見表</h2>
+  </div>
+
+  <div class="bg-ads-surface border border-ads-border rounded-xl overflow-hidden mb-4">
+    <!-- ヘッダー -->
+    <div class="grid grid-cols-3 bg-slate-100 border-b border-ads-border">
+      <div class="px-4 py-3 text-xs font-bold text-slate-600 uppercase tracking-wider">業務カテゴリ</div>
+      <div class="px-4 py-3 text-xs font-bold text-blue-700 uppercase tracking-wider flex items-center gap-1.5">
+        <div class="w-2.5 h-2.5 rounded-full bg-blue-500"></div>野添
+      </div>
+      <div class="px-4 py-3 text-xs font-bold text-emerald-700 uppercase tracking-wider flex items-center gap-1.5">
+        <div class="w-2.5 h-2.5 rounded-full bg-emerald-500"></div>宮坂
+      </div>
+    </div>
+    <!-- 行 -->
+    <div class="divide-y divide-ads-border/50">
+      <div class="grid grid-cols-3">
+        <div class="px-4 py-3 text-sm font-medium text-slate-700 bg-ads-surface">製品の見積書作成</div>
+        <div class="px-4 py-3 text-sm text-ads-dim">—</div>
+        <div class="px-4 py-3 text-sm text-ads-dim">—<span class="ml-1 text-xs text-amber-600 font-medium">（営業が担当）</span></div>
+      </div>
+      <div class="grid grid-cols-3">
+        <div class="px-4 py-3 text-sm font-medium text-slate-700 bg-ads-surface">保守の見積書作成</div>
+        <div class="px-4 py-3 text-sm text-ads-dim">—</div>
+        <div class="px-4 py-3 text-sm text-emerald-700 bg-emerald-500/5 flex items-center gap-1.5"><i data-lucide="check-circle" class="w-4 h-4 text-emerald-500 flex-shrink-0"></i>担当</div>
+      </div>
+      <div class="grid grid-cols-3">
+        <div class="px-4 py-3 text-sm font-medium text-slate-700 bg-ads-surface">受注処理・仕入れ発注</div>
+        <div class="px-4 py-3 text-sm text-blue-700 bg-blue-500/5 flex items-center gap-1.5"><i data-lucide="check-circle" class="w-4 h-4 text-blue-500 flex-shrink-0"></i>担当</div>
+        <div class="px-4 py-3 text-sm text-ads-dim">—</div>
+      </div>
+      <div class="grid grid-cols-3">
+        <div class="px-4 py-3 text-sm font-medium text-slate-700 bg-ads-surface">出荷・納品書・請求書の発送</div>
+        <div class="px-4 py-3 text-sm text-blue-700 bg-blue-500/5 flex items-center gap-1.5"><i data-lucide="check-circle" class="w-4 h-4 text-blue-500 flex-shrink-0"></i>担当</div>
+        <div class="px-4 py-3 text-sm text-ads-dim">—</div>
+      </div>
+      <div class="grid grid-cols-3">
+        <div class="px-4 py-3 text-sm font-medium text-slate-700 bg-ads-surface">売上集計・販売データ配布</div>
+        <div class="px-4 py-3 text-sm text-blue-700 bg-blue-500/5 flex items-center gap-1.5"><i data-lucide="check-circle" class="w-4 h-4 text-blue-500 flex-shrink-0"></i>担当（毎金曜）</div>
+        <div class="px-4 py-3 text-sm text-ads-dim">—</div>
+      </div>
+      <div class="grid grid-cols-3">
+        <div class="px-4 py-3 text-sm font-medium text-slate-700 bg-ads-surface">インストール後のユーザ登録</div>
+        <div class="px-4 py-3 text-sm text-ads-dim">—</div>
+        <div class="px-4 py-3 text-sm text-emerald-700 bg-emerald-500/5 flex items-center gap-1.5"><i data-lucide="check-circle" class="w-4 h-4 text-emerald-500 flex-shrink-0"></i>担当</div>
+      </div>
+      <div class="grid grid-cols-3">
+        <div class="px-4 py-3 text-sm font-medium text-slate-700 bg-ads-surface">サポート更新シートの作成・送付</div>
+        <div class="px-4 py-3 text-sm text-ads-dim">—</div>
+        <div class="px-4 py-3 text-sm text-emerald-700 bg-emerald-500/5 flex items-center gap-1.5"><i data-lucide="check-circle" class="w-4 h-4 text-emerald-500 flex-shrink-0"></i>担当</div>
+      </div>
+      <div class="grid grid-cols-3">
+        <div class="px-4 py-3 text-sm font-medium text-slate-700 bg-ads-surface">契約更新・解約の最終処理</div>
+        <div class="px-4 py-3 text-sm text-blue-700 bg-blue-500/5 flex items-center gap-1.5"><i data-lucide="check-circle" class="w-4 h-4 text-blue-500 flex-shrink-0"></i>担当</div>
+        <div class="px-4 py-3 text-sm text-ads-dim">—</div>
+      </div>
+      <div class="grid grid-cols-3">
+        <div class="px-4 py-3 text-sm font-medium text-slate-700 bg-ads-surface">保守切れリストの作成・客先へ連絡</div>
+        <div class="px-4 py-3 text-sm text-ads-dim">—</div>
+        <div class="px-4 py-3 text-sm text-emerald-700 bg-emerald-500/5 flex items-center gap-1.5"><i data-lucide="check-circle" class="w-4 h-4 text-emerald-500 flex-shrink-0"></i>担当（前月分）</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================ -->
+<!--  SECTION 3: 依頼先ガイド「こんなときは誰に？」                  -->
+<!-- ============================================================ -->
+<section class="mb-16 md:mb-20">
+  <div class="flex items-center gap-3 mb-8">
+    <div class="flex items-center justify-center w-10 h-10 rounded-lg bg-amber-500/10 flex-shrink-0">
+      <i data-lucide="message-circle-question" class="w-5 h-5 text-amber-600"></i>
+    </div>
+    <h2 class="text-xl md:text-2xl font-bold text-slate-900">こんなときは誰に頼む？</h2>
+  </div>
+
+  <p class="mb-6 leading-relaxed">営業メンバーがよく迷う場面をまとめました。</p>
+
+  <div class="space-y-3">
+
+    <!-- 保守の見積書 → 宮坂（緑） -->
+    <div class="bg-emerald-500/5 border border-emerald-500/20 rounded-xl overflow-hidden">
+      <div class="flex items-start gap-4 p-4">
+        <div class="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/25 flex items-center justify-center flex-shrink-0 mt-0.5">
+          <i data-lucide="shield" class="w-5 h-5 text-emerald-600"></i>
+        </div>
+        <div class="flex-1">
+          <div class="font-bold text-slate-900 mb-1">「保守の見積書を作ってほしい」</div>
+          <div class="flex items-center gap-2 mb-1">
+            <div class="w-2.5 h-2.5 rounded-full bg-emerald-500 flex-shrink-0"></div>
+            <span class="text-sm font-bold text-emerald-700">宮坂に依頼</span>
+          </div>
+          <div class="text-sm text-ads-muted">保守に関する見積書の作成・送付は宮坂が担当</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 受注処理 → 野添（青） -->
+    <div class="bg-blue-500/5 border border-blue-500/20 rounded-xl overflow-hidden">
+      <div class="flex items-start gap-4 p-4">
+        <div class="w-10 h-10 rounded-xl bg-blue-500/15 border border-blue-500/25 flex items-center justify-center flex-shrink-0 mt-0.5">
+          <i data-lucide="clipboard-list" class="w-5 h-5 text-blue-600"></i>
+        </div>
+        <div class="flex-1">
+          <div class="font-bold text-slate-900 mb-1">「注文書が届いた。受注処理をしてほしい」</div>
+          <div class="flex items-center gap-2 mb-1">
+            <div class="w-2.5 h-2.5 rounded-full bg-blue-500 flex-shrink-0"></div>
+            <span class="text-sm font-bold text-blue-700">野添に依頼</span>
+          </div>
+          <div class="text-sm text-ads-muted">受注No.割り当て・価格確認・仕入れ発注まで野添が一括対応</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 出荷・請求書 → 野添（青） -->
+    <div class="bg-blue-500/5 border border-blue-500/20 rounded-xl overflow-hidden">
+      <div class="flex items-start gap-4 p-4">
+        <div class="w-10 h-10 rounded-xl bg-blue-500/15 border border-blue-500/25 flex items-center justify-center flex-shrink-0 mt-0.5">
+          <i data-lucide="truck" class="w-5 h-5 text-blue-600"></i>
+        </div>
+        <div class="flex-1">
+          <div class="font-bold text-slate-900 mb-1">「出荷状況を確認したい」「請求書はいつ出る？」</div>
+          <div class="flex items-center gap-2 mb-1">
+            <div class="w-2.5 h-2.5 rounded-full bg-blue-500 flex-shrink-0"></div>
+            <span class="text-sm font-bold text-blue-700">野添に確認</span>
+          </div>
+          <div class="text-sm text-ads-muted">出荷処理・請求書発行はすべて野添が担当</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ユーザ登録 → 宮坂（緑） -->
+    <div class="bg-emerald-500/5 border border-emerald-500/20 rounded-xl overflow-hidden">
+      <div class="flex items-start gap-4 p-4">
+        <div class="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/25 flex items-center justify-center flex-shrink-0 mt-0.5">
+          <i data-lucide="monitor" class="w-5 h-5 text-emerald-600"></i>
+        </div>
+        <div class="flex-1">
+          <div class="font-bold text-slate-900 mb-1">「顧客がインストールを完了した。ユーザ登録は？」</div>
+          <div class="flex items-center gap-2 mb-1">
+            <div class="w-2.5 h-2.5 rounded-full bg-emerald-500 flex-shrink-0"></div>
+            <span class="text-sm font-bold text-emerald-700">宮坂が自動で対応</span>
+          </div>
+          <div class="text-sm text-ads-muted">インストール完了後、システムから宮坂へ自動でメールが届き、ユーザ登録処理を行う</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- サポート更新案内 → 宮坂（緑） -->
+    <div class="bg-emerald-500/5 border border-emerald-500/20 rounded-xl overflow-hidden">
+      <div class="flex items-start gap-4 p-4">
+        <div class="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/25 flex items-center justify-center flex-shrink-0 mt-0.5">
+          <i data-lucide="send" class="w-5 h-5 text-emerald-600"></i>
+        </div>
+        <div class="flex-1">
+          <div class="font-bold text-slate-900 mb-1">「サポート更新の案内はどちらが送る？」</div>
+          <div class="flex items-center gap-2 mb-1">
+            <div class="w-2.5 h-2.5 rounded-full bg-emerald-500 flex-shrink-0"></div>
+            <span class="text-sm font-bold text-emerald-700">宮坂が担当（準備〜送付）</span>
+          </div>
+          <div class="text-sm text-ads-muted">更新2ヶ月前に宮坂がリスト作成→営業へ確認依頼→コメント反映→更新シート送付。営業はコメントを返すだけでOK</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 保守切れ連絡 → 宮坂（緑） -->
+    <div class="bg-emerald-500/5 border border-emerald-500/20 rounded-xl overflow-hidden">
+      <div class="flex items-start gap-4 p-4">
+        <div class="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/25 flex items-center justify-center flex-shrink-0 mt-0.5">
+          <i data-lucide="phone-call" class="w-5 h-5 text-emerald-600"></i>
+        </div>
+        <div class="flex-1">
+          <div class="font-bold text-slate-900 mb-1">「保守更新の連絡がないお客様への連絡は？」</div>
+          <div class="flex items-center gap-2 mb-1">
+            <div class="w-2.5 h-2.5 rounded-full bg-emerald-500 flex-shrink-0"></div>
+            <span class="text-sm font-bold text-emerald-700">宮坂が担当</span>
+          </div>
+          <div class="text-sm text-ads-muted">前月に保守が切れた顧客のリストを作成し、客先へ連絡する</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 解約 → 両方（紫） -->
+    <div class="bg-purple-500/5 border border-purple-500/20 rounded-xl overflow-hidden">
+      <div class="flex items-start gap-4 p-4">
+        <div class="w-10 h-10 rounded-xl bg-purple-500/15 border border-purple-500/25 flex items-center justify-center flex-shrink-0 mt-0.5">
+          <i data-lucide="file-minus" class="w-5 h-5 text-purple-600"></i>
+        </div>
+        <div class="flex-1">
+          <div class="font-bold text-slate-900 mb-2">「顧客がサポートを解約したい」</div>
+          <div class="flex items-center gap-2 mb-1">
+            <div class="w-2.5 h-2.5 rounded-full bg-blue-500 flex-shrink-0"></div>
+            <span class="text-sm font-bold text-blue-700">野添</span>
+            <span class="text-sm text-ads-muted">または</span>
+            <div class="w-2.5 h-2.5 rounded-full bg-emerald-500 flex-shrink-0"></div>
+            <span class="text-sm font-bold text-emerald-700">宮坂、どちらでも対応可</span>
+          </div>
+          <div class="text-sm text-ads-muted mb-3">解約処理（納入機器システムの更新・記録）はどちらでも対応できます。</div>
+          <div class="bg-blue-500/5 border border-blue-500/20 rounded-lg px-3 py-2 flex items-start gap-2">
+            <i data-lucide="alert-circle" class="w-4 h-4 text-blue-500 flex-shrink-0 mt-0.5"></i>
+            <div class="text-sm">
+              <span class="font-bold text-blue-700">更新手続きが必要な場合は野添が担当</span>
+              <span class="text-ads-muted"> — 更新は請求が発生するので野添が担当</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================================================ -->
+<!--  SECTION 4: まとめ                                            -->
+<!-- ============================================================ -->
+<section>
+  <div class="flex items-center gap-3 mb-6">
+    <div class="flex items-center justify-center w-10 h-10 rounded-lg bg-ads-accent/10 flex-shrink-0">
+      <i data-lucide="check-circle" class="w-5 h-5 text-ads-accent-light"></i>
+    </div>
+    <h2 class="text-xl md:text-2xl font-bold text-slate-900">まとめ</h2>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+    <div class="bg-blue-500/5 border border-blue-500/20 rounded-xl p-5 border-l-4 border-l-blue-500">
+      <div class="font-black text-blue-700 text-lg mb-2">野添への依頼</div>
+      <p class="text-sm text-ads-muted leading-relaxed">
+        <strong class="text-slate-800">受注・出荷・請求・契約更新</strong>など、受注から請求までの一連の流れはすべて野添が担当。「注文まわりで何かあれば野添へ」と覚えてください。
+      </p>
+    </div>
+    <div class="bg-emerald-500/5 border border-emerald-500/20 rounded-xl p-5 border-l-4 border-l-emerald-500">
+      <div class="font-black text-emerald-700 text-lg mb-2">宮坂への依頼</div>
+      <p class="text-sm text-ads-muted leading-relaxed">
+        <strong class="text-slate-800">保守の見積書・サポート更新案内・ユーザ情報変更等</strong>は宮坂が担当。
+      </p>
+    </div>
+  </div>
+
+  <div class="text-center bg-gradient-to-b from-ads-accent/5 to-transparent border border-ads-accent/10 rounded-xl p-6 md:p-8">
+    <i data-lucide="users" class="w-8 h-8 text-ads-accent mx-auto mb-3"></i>
+    <p class="text-base font-bold text-slate-900 mb-2">迷ったときは色で判断</p>
+    <p class="text-ads-muted text-sm max-w-md mx-auto">
+      <span class="font-bold text-blue-600">青＝野添</span>、<span class="font-bold text-emerald-600">緑＝宮坂</span>。この図解を手元に置いておけば、誰に何を頼むか一目でわかります。
+    </p>
+  </div>
+</section>
+
+<!-- CONTENT_END -->
+  </main>
+  <footer class="max-w-3xl mx-auto px-5 pb-10 pt-6 border-t border-ads-border/30">
+    <p class="text-xs text-ads-dim text-center">AI-Driven School の図解ツールで作成</p>
+  </footer>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>lucide.createIcons();</script>
+</body>
+</html>
