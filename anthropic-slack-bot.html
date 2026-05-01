@@ -6,7 +6,7 @@
   <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
   <meta name="googlebot" content="noindex, nofollow">
   <meta property="og:title" content="Anthropic Slack Botの仕組み">
-  <meta property="og:description" content="AnthropicブログをGemini APIで要約してSlackに投稿するシステムを、シンプルなフロー図で図解します。">
+  <meta property="og:description" content="AnthropicブログをGemini APIで要約してSlackに投稿するシステムを、フロー図で図解します。">
   <meta property="og:type" content="article">
   <title>Anthropic Slack Botの仕組み</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23FFFFFF'/><rect x='8' y='8' width='84' height='84' rx='14' fill='none' stroke='%233B82F6' stroke-width='4'/><circle cx='32' cy='40' r='10' fill='%233B82F6' opacity='0.8'/><circle cx='68' cy='40' r='10' fill='%2360A5FA' opacity='0.8'/><rect x='25' y='62' width='50' height='6' rx='3' fill='%2394A3B8' opacity='0.6'/><rect x='30' y='74' width='40' height='6' rx='3' fill='%2394A3B8' opacity='0.3'/></svg>">
@@ -63,112 +63,246 @@
   </style>
 </head>
 <body class="bg-ads-bg text-slate-600 antialiased leading-relaxed border-t-4 border-ads-accent">
-  <div class="no-print max-w-2xl mx-auto px-5 pt-2 flex justify-end">
+  <div class="no-print max-w-3xl mx-auto px-5 pt-2 flex justify-end">
     <button onclick="window.print()" class="flex items-center gap-1.5 text-sm text-ads-dim hover:text-ads-accent transition-colors cursor-pointer">
       <i data-lucide="download" class="w-4 h-4"></i>
       PDF
     </button>
   </div>
-  <main class="max-w-2xl mx-auto px-5 py-10 md:py-14 text-base md:text-lg text-slate-700 leading-relaxed">
+  <main class="max-w-3xl mx-auto px-5 py-10 md:py-14 text-base md:text-lg text-slate-700 leading-relaxed">
 
-<div class="text-center mb-10">
-  <div class="inline-flex items-center gap-2 bg-ads-accent/10 text-ads-accent-light px-5 py-2 rounded-full text-base font-medium mb-6">
-    <i data-lucide="workflow" class="w-5 h-5"></i>
-    開発ツール
-  </div>
-  <h1 class="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-5 leading-tight">
-    <span class="bg-gradient-to-r from-blue-600 to-emerald-600 bg-clip-text text-transparent">Anthropic Slack Bot</span>の仕組み
-  </h1>
-  <p class="text-lg md:text-xl text-ads-muted max-w-xl mx-auto">
-    ブログの新着を毎朝チェックし、<strong class="text-slate-800">Gemini</strong>で要約して <strong class="text-slate-800">Slack</strong> に流す仕組みです。
-  </p>
-</div>
-
-<div class="bg-ads-surface border border-ads-border rounded-2xl p-6 md:p-10 mb-10">
-  <p class="text-center text-xl md:text-2xl font-bold text-slate-900 mb-8 leading-snug">
-    上から順に流れます。<span class="text-ads-accent-light">新着記事があるときだけ</span>AIのAPIを呼びます。
-  </p>
-
-  <!-- 縦型シンプルフロー（大きい文字） -->
-  <div class="flex flex-col items-center gap-0 max-w-md mx-auto">
-
-    <div class="w-full rounded-xl border-2 border-stone-400/70 bg-stone-100 px-5 py-5 text-center shadow-sm">
-      <div class="flex justify-center mb-2">
-        <i data-lucide="timer" class="w-8 h-8 text-stone-700"></i>
+    <div class="text-center mb-10">
+      <div class="inline-flex items-center gap-2 bg-ads-accent/10 text-ads-accent-light px-5 py-2 rounded-full text-base font-medium mb-6">
+        <i data-lucide="workflow" class="w-5 h-5"></i>
+        開発ツール
       </div>
-      <div class="text-lg md:text-xl font-bold text-stone-900">GitHub Actions</div>
-      <div class="text-base md:text-lg text-stone-700 mt-1">毎日 午前9時</div>
-    </div>
-    <div class="py-2 text-slate-400"><i data-lucide="arrow-down" class="w-8 h-8"></i></div>
-
-    <div class="w-full rounded-xl border-2 border-violet-400/80 bg-violet-50 px-5 py-5 text-center shadow-sm">
-      <div class="flex justify-center mb-2">
-        <i data-lucide="file-code" class="w-8 h-8 text-violet-800"></i>
-      </div>
-      <div class="text-lg md:text-xl font-bold text-violet-950">main.py</div>
-      <div class="text-base text-violet-900/90 mt-1">全体の司令塔（Python）</div>
-    </div>
-    <div class="py-2 text-slate-400"><i data-lucide="arrow-down" class="w-8 h-8"></i></div>
-
-    <div class="w-full rounded-xl border-2 border-emerald-600/50 bg-emerald-50 px-5 py-5 text-center shadow-sm">
-      <div class="flex justify-center mb-2">
-        <i data-lucide="rss" class="w-8 h-8 text-emerald-800"></i>
-      </div>
-      <div class="text-lg md:text-xl font-bold text-emerald-950">Anthropic Blog</div>
-      <div class="text-base text-emerald-900/90 mt-1">記事を取得</div>
-      <p class="text-sm md:text-base text-slate-600 mt-3 text-left leading-snug border-t border-emerald-200/80 pt-3">
-        <strong class="text-stone-800">processed.json</strong> に載っているURLはスキップ。未読の記事だけ次へ。
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-5 leading-tight">
+        <span class="bg-gradient-to-r from-blue-600 to-emerald-600 bg-clip-text text-transparent">Anthropic Slack Bot</span>の仕組み
+      </h1>
+      <p class="text-lg md:text-xl text-ads-muted max-w-2xl mx-auto">
+        エンジニアリングブログの<strong class="text-slate-800">新着記事</strong>だけを拾い、<strong class="text-slate-800">Gemini</strong>で要約して <strong class="text-slate-800">Slack</strong> に届けるパイプラインです。
       </p>
     </div>
-    <div class="py-2 text-slate-400"><i data-lucide="arrow-down" class="w-8 h-8"></i></div>
 
-    <div class="w-full rounded-xl border-2 border-amber-700/50 bg-amber-50 px-5 py-5 text-center shadow-sm">
-      <div class="flex justify-center mb-2">
-        <i data-lucide="sparkles" class="w-8 h-8 text-amber-900"></i>
-      </div>
-      <div class="text-lg md:text-xl font-bold text-amber-950">Gemini API</div>
-      <div class="text-base text-amber-900/90 mt-1">日本語で要約（JSON）</div>
-      <p class="text-sm md:text-base text-slate-600 mt-3 text-left leading-snug border-t border-amber-200/80 pt-3">
-        呼び出し用のキーは <strong class="text-stone-800">.env</strong> または GitHub の <strong class="text-stone-800">Secrets</strong>。
+    <div class="bg-ads-surface border border-ads-border rounded-2xl p-6 md:p-10 mb-10">
+      <p class="text-center text-lg md:text-xl font-bold text-slate-900 mb-2">
+        データの流れ（箱は処理の場所・矢印のラベルは中身）
       </p>
-    </div>
-    <div class="py-2 text-slate-400"><i data-lucide="arrow-down" class="w-8 h-8"></i></div>
+      <p class="text-center text-sm md:text-base text-ads-muted mb-10">
+        色分け：<span class="text-blue-700 font-semibold">青＝自動実行</span>　<span class="text-violet-800 font-semibold">紫＝Python</span>　<span class="text-orange-800 font-semibold">橙＝AI API</span>　<span class="text-emerald-800 font-semibold">緑＝外部の取得先／投稿先</span>
+      </p>
 
-    <div class="w-full rounded-xl border-2 border-violet-400/80 bg-violet-50 px-5 py-4 text-center shadow-sm">
-      <div class="text-lg md:text-xl font-bold text-violet-950">Slack用に整形</div>
-      <div class="text-base text-violet-900/90 mt-1">見やすいメッセージに変換</div>
-    </div>
-    <div class="py-2 text-slate-400"><i data-lucide="arrow-down" class="w-8 h-8"></i></div>
+      <div class="flex flex-col items-stretch max-w-xl mx-auto gap-0">
 
-    <div class="w-full rounded-xl border-2 border-emerald-600/50 bg-emerald-50 px-5 py-5 text-center shadow-sm">
-      <div class="flex justify-center mb-2">
-        <i data-lucide="messages-square" class="w-8 h-8 text-emerald-800"></i>
+        <!-- Step 1: GitHub Actions 青 -->
+        <div class="rounded-2xl border-2 border-blue-400 bg-gradient-to-b from-blue-50 to-white px-5 py-5 md:px-6 md:py-6 shadow-md">
+          <div class="flex items-start gap-4">
+            <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-blue-500 text-white shadow-inner">
+              <i data-lucide="play-circle" class="w-8 h-8"></i>
+            </div>
+            <div class="min-w-0 flex-1 text-left">
+              <div class="text-xs font-bold uppercase tracking-wide text-blue-700">Step 1 · 自動実行（青）</div>
+              <h2 class="text-xl md:text-2xl font-black text-blue-950 mt-0.5">GitHub Actions</h2>
+              <p class="mt-2 text-sm md:text-base text-slate-600 leading-snug">
+                毎日午前9時にジョブが走り、リポジトリ上の <code class="rounded bg-white/80 px-1.5 py-0.5 text-sm text-blue-900 ring-1 ring-blue-200">main.py</code> をワンショットで実行します。
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-col items-center py-3">
+          <i data-lucide="chevron-down" class="w-10 h-10 text-blue-400"></i>
+          <div class="mt-2 w-full rounded-xl border border-blue-200 bg-blue-50/90 px-4 py-3 text-center shadow-sm">
+            <div class="flex items-center justify-center gap-2 text-sm font-semibold text-blue-900">
+              <i data-lucide="zap" class="w-4 h-4 shrink-0"></i>
+              定時トリガー（起動シグナル）
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2: main.py 紫 -->
+        <div class="rounded-2xl border-2 border-violet-400 bg-gradient-to-b from-violet-50 to-white px-5 py-5 md:px-6 md:py-6 shadow-md">
+          <div class="flex flex-col gap-4 md:flex-row md:items-start">
+            <div class="flex items-start gap-4 md:flex-1">
+              <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-violet-600 text-white shadow-inner">
+                <i data-lucide="file-code" class="w-8 h-8"></i>
+              </div>
+              <div class="min-w-0 flex-1 text-left">
+                <div class="text-xs font-bold uppercase tracking-wide text-violet-700">Step 2 · Python（紫）</div>
+                <h2 class="text-xl md:text-2xl font-black text-violet-950 mt-0.5">main.py</h2>
+                <p class="mt-2 text-sm md:text-base text-slate-600 leading-snug">
+                  ブログ取得・重複チェック・Gemini 呼び出し・Slack 用の整形までを一手に引き受ける司令塔です。
+                </p>
+              </div>
+            </div>
+            <div class="rounded-xl border border-violet-200 bg-white/90 px-4 py-3 text-left md:w-[200px] shrink-0">
+              <div class="flex items-center gap-2 text-xs font-bold text-slate-500">
+                <i data-lucide="database" class="w-4 h-4 text-violet-600"></i>
+                processed.json
+              </div>
+              <p class="mt-1.5 text-xs md:text-sm text-slate-600 leading-snug">
+                処理済みURLの記録。ここにある記事はスキップし、API 課金を抑えます。
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-col items-center py-3">
+          <i data-lucide="chevron-down" class="w-10 h-10 text-violet-400"></i>
+          <div class="mt-2 w-full rounded-xl border border-emerald-200 bg-emerald-50/90 px-4 py-3 text-center shadow-sm">
+            <div class="flex flex-wrap items-center justify-center gap-2 text-sm font-semibold text-emerald-900">
+              <i data-lucide="globe" class="w-4 h-4 shrink-0"></i>
+              <span>HTTP リクエスト</span>
+              <span class="text-emerald-600">→</span>
+              <span>記事ページの取得</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3: Blog 緑（取得元） -->
+        <div class="rounded-2xl border-2 border-emerald-500 bg-gradient-to-b from-emerald-50 to-white px-5 py-5 md:px-6 md:py-6 shadow-md">
+          <div class="flex items-start gap-4">
+            <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-emerald-600 text-white shadow-inner">
+              <i data-lucide="rss" class="w-8 h-8"></i>
+            </div>
+            <div class="min-w-0 flex-1 text-left">
+              <div class="text-xs font-bold uppercase tracking-wide text-emerald-700">Step 3 · 外部ソース（緑）</div>
+              <h2 class="text-xl md:text-2xl font-black text-emerald-950 mt-0.5">Anthropic Blog</h2>
+              <p class="mt-2 text-sm md:text-base text-slate-600 leading-snug">
+                公開されているエンジニアリング記事を読み込み、本文テキストを <strong class="text-violet-900">main.py</strong> に返します。
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-col items-center py-3">
+          <i data-lucide="chevron-down" class="w-10 h-10 text-emerald-400"></i>
+          <div class="mt-2 w-full rounded-xl border border-violet-200 bg-violet-50/90 px-4 py-3 text-center shadow-sm">
+            <div class="flex flex-wrap items-center justify-center gap-2 text-sm font-semibold text-violet-900">
+              <i data-lucide="file-text" class="w-4 h-4 shrink-0"></i>
+              記事テキスト（長文の本文）
+            </div>
+            <p class="mt-1 text-xs text-violet-800/90">HTML から抜き出したプレーンに近いテキストが次の工程の入力になります。</p>
+          </div>
+        </div>
+
+        <!-- Step 4: Gemini 橙 -->
+        <div class="rounded-2xl border-2 border-orange-400 bg-gradient-to-b from-orange-50 to-white px-5 py-5 md:px-6 md:py-6 shadow-md">
+          <div class="flex items-start gap-4">
+            <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-orange-500 text-white shadow-inner">
+              <i data-lucide="sparkles" class="w-8 h-8"></i>
+            </div>
+            <div class="min-w-0 flex-1 text-left">
+              <div class="text-xs font-bold uppercase tracking-wide text-orange-800">Step 4 · AI API（橙）</div>
+              <h2 class="text-xl md:text-2xl font-black text-orange-950 mt-0.5">Gemini API</h2>
+              <p class="mt-2 text-sm md:text-base text-slate-600 leading-snug">
+                記事全文を渡し、日本語の要約・用語・着想などを <strong class="text-orange-900">JSON</strong> で受け取ります。モデル例: gemini-2.5-flash。
+              </p>
+              <p class="mt-2 flex items-start gap-2 rounded-lg bg-orange-100/60 px-3 py-2 text-xs md:text-sm text-orange-950 ring-1 ring-orange-200/80">
+                <i data-lucide="key-round" class="mt-0.5 w-4 h-4 shrink-0"></i>
+                <span>APIキーは GitHub <strong>Secrets</strong> またはローカルの <strong>.env</strong> から読み込み、リクエストに添付します。</span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-col items-center py-3">
+          <i data-lucide="chevron-down" class="w-10 h-10 text-orange-400"></i>
+          <div class="mt-2 w-full rounded-xl border border-orange-200 bg-orange-50/90 px-4 py-3 text-center shadow-sm">
+            <div class="flex flex-wrap items-center justify-center gap-2 text-sm font-semibold text-orange-950">
+              <i data-lucide="braces" class="w-4 h-4 shrink-0"></i>
+              JSON（要約・用語・アイデアなどの構造化データ）
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 5: Slack 整形 紫 -->
+        <div class="rounded-2xl border-2 border-violet-400 bg-gradient-to-b from-violet-50 to-white px-5 py-5 md:px-6 md:py-6 shadow-md">
+          <div class="flex items-start gap-4">
+            <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-violet-600 text-white shadow-inner">
+              <i data-lucide="pen-line" class="w-8 h-8"></i>
+            </div>
+            <div class="min-w-0 flex-1 text-left">
+              <div class="text-xs font-bold uppercase tracking-wide text-violet-700">Step 5 · Python（紫）</div>
+              <h2 class="text-xl md:text-2xl font-black text-violet-950 mt-0.5">Slack 向け整形</h2>
+              <p class="mt-2 text-sm md:text-base text-slate-600 leading-snug">
+                JSON を解釈し、引用・箇条書き・見出しなど、Slack が理解しやすいメッセージ形式に組み替えます。
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-col items-center py-3">
+          <i data-lucide="chevron-down" class="w-10 h-10 text-violet-400"></i>
+          <div class="mt-2 w-full rounded-xl border border-teal-200 bg-teal-50/90 px-4 py-3 text-center shadow-sm">
+            <div class="flex flex-wrap items-center justify-center gap-2 text-sm font-semibold text-teal-900">
+              <i data-lucide="layout-template" class="w-4 h-4 shrink-0"></i>
+              整形済みメッセージ（投稿用ペイロード）
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 6: Slack 緑 -->
+        <div class="rounded-2xl border-2 border-emerald-500 bg-gradient-to-b from-emerald-50 to-white px-5 py-5 md:px-6 md:py-6 shadow-md">
+          <div class="flex items-start gap-4">
+            <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-emerald-600 text-white shadow-inner">
+              <i data-lucide="messages-square" class="w-8 h-8"></i>
+            </div>
+            <div class="min-w-0 flex-1 text-left">
+              <div class="text-xs font-bold uppercase tracking-wide text-emerald-700">Step 6 · 投稿先（緑）</div>
+              <h2 class="text-xl md:text-2xl font-black text-emerald-950 mt-0.5">Slack</h2>
+              <p class="mt-2 text-sm md:text-base text-slate-600 leading-snug">
+                Web API 経由でチャンネル（例: フリートーク）に投稿し、チームがその場で要約を読める状態にします。
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="text-lg md:text-xl font-bold text-emerald-950">Slack</div>
-      <div class="text-base text-emerald-900/90 mt-1">チャンネルへ投稿</div>
+
+      <div class="mt-10 rounded-xl border border-ads-border bg-white/80 p-5 md:p-6">
+        <h3 class="mb-3 flex items-center gap-2 text-base font-bold text-slate-800 md:text-lg">
+          <i data-lucide="palette" class="w-5 h-5 text-ads-accent"></i>
+          凡例（色と意味）
+        </h3>
+        <ul class="grid gap-3 text-sm md:text-base sm:grid-cols-2">
+          <li class="flex items-center gap-3 rounded-lg border border-blue-100 bg-blue-50/50 px-3 py-2">
+            <span class="h-4 w-4 shrink-0 rounded bg-blue-500"></span>
+            <span><strong class="text-blue-900">青</strong>：スケジュール実行（GitHub Actions）</span>
+          </li>
+          <li class="flex items-center gap-3 rounded-lg border border-violet-100 bg-violet-50/50 px-3 py-2">
+            <span class="h-4 w-4 shrink-0 rounded bg-violet-600"></span>
+            <span><strong class="text-violet-900">紫</strong>：Python コード（main・整形）</span>
+          </li>
+          <li class="flex items-center gap-3 rounded-lg border border-orange-100 bg-orange-50/50 px-3 py-2">
+            <span class="h-4 w-4 shrink-0 rounded bg-orange-500"></span>
+            <span><strong class="text-orange-900">橙</strong>：外部 AI API（Gemini）</span>
+          </li>
+          <li class="flex items-center gap-3 rounded-lg border border-emerald-100 bg-emerald-50/50 px-3 py-2">
+            <span class="h-4 w-4 shrink-0 rounded bg-emerald-600"></span>
+            <span><strong class="text-emerald-900">緑</strong>：ブログ取得・Slack 投稿などの外部サービス</span>
+          </li>
+        </ul>
+        <p class="mt-4 text-sm text-ads-muted leading-relaxed">
+          新着がない日は Gemini を呼ばない設計にしやすく、<strong class="text-slate-700">課金は記事があったタイミング</strong>に寄せられます。
+        </p>
+      </div>
     </div>
-  </div>
 
-  <p class="text-center text-base md:text-lg text-ads-muted mt-10 pt-8 border-t border-ads-border/70">
-    色の目安：グレー＝自動・設定ファイル／紫＝コード・整形／緑＝外部サービス／黄＝AI
-  </p>
-</div>
-
-<div class="rounded-2xl border border-ads-border bg-white p-6 md:p-8">
-  <h2 class="text-xl md:text-2xl font-bold text-slate-900 mb-5 flex items-center gap-2">
-    <i data-lucide="list-ordered" class="w-7 h-7 text-ads-accent shrink-0"></i>
-    一言でいうと
-  </h2>
-  <ul class="space-y-4 text-base md:text-lg text-slate-700">
-    <li class="flex gap-3"><span class="font-black text-ads-accent shrink-0">1.</span><span><strong class="text-slate-900">動く</strong> — 毎朝、GitHub Actions がスクリプトを起動。</span></li>
-    <li class="flex gap-3"><span class="font-black text-ads-accent shrink-0">2.</span><span><strong class="text-slate-900">集める</strong> — ブログから本文を取り、未処理だけ残す。</span></li>
-    <li class="flex gap-3"><span class="font-black text-ads-accent shrink-0">3.</span><span><strong class="text-slate-900">要約する</strong> — Gemini が JSON 形式で要約を返す。</span></li>
-    <li class="flex gap-3"><span class="font-black text-ads-accent shrink-0">4.</span><span><strong class="text-slate-900">届ける</strong> — Slack に投稿して共有。</span></li>
-  </ul>
-</div>
+    <div class="rounded-2xl border border-ads-border bg-white p-6 md:p-8">
+      <h2 class="mb-5 flex items-center gap-2 text-xl font-bold text-slate-900 md:text-2xl">
+        <i data-lucide="list-checks" class="w-7 h-7 shrink-0 text-ads-accent"></i>
+        チェックリスト（実装時の観点）
+      </h2>
+      <ul class="space-y-3 text-sm md:text-base text-slate-700">
+        <li class="flex gap-3"><i data-lucide="check" class="mt-0.5 h-5 w-5 shrink-0 text-emerald-600"></i><span>Actions の cron が期待どおり JST 相当になっているか</span></li>
+        <li class="flex gap-3"><i data-lucide="check" class="mt-0.5 h-5 w-5 shrink-0 text-emerald-600"></i><span>Secrets に Gemini / Slack のトークンが入り、ログに出ていないか</span></li>
+        <li class="flex gap-3"><i data-lucide="check" class="mt-0.5 h-5 w-5 shrink-0 text-emerald-600"></i><span>processed.json がリポジトリまたは成果物で更新されるか</span></li>
+        <li class="flex gap-3"><i data-lucide="check" class="mt-0.5 h-5 w-5 shrink-0 text-emerald-600"></i><span>Slack 側のチャンネル ID・権限が投稿用に足りているか</span></li>
+      </ul>
+    </div>
 
   </main>
-  <footer class="max-w-2xl mx-auto px-5 pb-10 pt-6 border-t border-ads-border/30">
+  <footer class="max-w-3xl mx-auto px-5 pb-10 pt-6 border-t border-ads-border/30">
     <p class="text-sm text-ads-dim text-center">AI-Driven School の図解ツールで作成</p>
   </footer>
   <script src="https://unpkg.com/lucide@latest"></script>
